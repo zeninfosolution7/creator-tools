@@ -37,14 +37,14 @@ export default function ToolsPage() {
             </p>
           </div>
 
-          <div className="bg-slate-800 p-6 rounded-xl">
-            <h3 className="text-xl font-semibold mb-2">
-              QR Code Generator
-            </h3>
-            <p className="text-gray-400 text-sm">
-              Create QR codes for links or text.
-            </p>
-          </div>
+          <a href="/tools/qr-code-generator" className="bg-slate-800 p-6 rounded-xl hover:scale-105 transition">
+			  <h3 className="text-xl font-semibold mb-2">
+				QR Code Generator
+			  </h3>
+			  <p className="text-gray-400 text-sm">
+				Generate QR codes instantly for links or text.
+			  </p>
+		</a>
 
           <div className="bg-slate-800 p-6 rounded-xl">
             <h3 className="text-xl font-semibold mb-2">
