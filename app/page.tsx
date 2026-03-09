@@ -82,6 +82,73 @@ export default function Home() {
   </div>
 
 </section>
+{/* POPULAR TOOLS */}
+
+<section className="max-w-6xl mx-auto px-6 py-20">
+
+  <h2 className="text-3xl font-bold text-center mb-12">
+    Popular Tools
+  </h2>
+
+  <div className="grid md:grid-cols-3 gap-6">
+
+    <div className="bg-slate-800 p-6 rounded-xl shadow hover:scale-105 transition">
+      <h3 className="text-xl font-semibold mb-2">
+        YouTube Thumbnail Downloader
+      </h3>
+      <p className="text-gray-400 text-sm">
+        Download high quality thumbnails from any YouTube video.
+      </p>
+    </div>
+
+    <div className="bg-slate-800 p-6 rounded-xl shadow hover:scale-105 transition">
+      <h3 className="text-xl font-semibold mb-2">
+        PDF to Word Converter
+      </h3>
+      <p className="text-gray-400 text-sm">
+        Convert PDF files into editable Word documents.
+      </p>
+    </div>
+
+    <div className="bg-slate-800 p-6 rounded-xl shadow hover:scale-105 transition">
+      <h3 className="text-xl font-semibold mb-2">
+        Image Compressor
+      </h3>
+      <p className="text-gray-400 text-sm">
+        Reduce image file size without losing quality.
+      </p>
+    </div>
+
+    <div className="bg-slate-800 p-6 rounded-xl shadow hover:scale-105 transition">
+      <h3 className="text-xl font-semibold mb-2">
+        QR Code Generator
+      </h3>
+      <p className="text-gray-400 text-sm">
+        Generate QR codes instantly for links and text.
+      </p>
+    </div>
+
+    <div className="bg-slate-800 p-6 rounded-xl shadow hover:scale-105 transition">
+      <h3 className="text-xl font-semibold mb-2">
+        Hashtag Generator
+      </h3>
+      <p className="text-gray-400 text-sm">
+        Generate trending hashtags for social media posts.
+      </p>
+    </div>
+
+    <div className="bg-slate-800 p-6 rounded-xl shadow hover:scale-105 transition">
+      <h3 className="text-xl font-semibold mb-2">
+        Base64 Encoder
+      </h3>
+      <p className="text-gray-400 text-sm">
+        Encode and decode Base64 text quickly.
+      </p>
+    </div>
+
+  </div>
+
+</section>
     </main>
   );
 }
