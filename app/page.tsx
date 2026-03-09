@@ -149,6 +149,46 @@ export default function Home() {
   </div>
 
 </section>
+{/* WHY CREATORTOOLS */}
+
+<section className="max-w-6xl mx-auto px-6 py-20 text-center">
+
+  <h2 className="text-3xl font-bold mb-12">
+    Why Choose CreatorTools
+  </h2>
+
+  <div className="grid md:grid-cols-3 gap-8">
+
+    <div className="bg-slate-800 p-8 rounded-xl">
+      <h3 className="text-xl font-semibold mb-3">
+        ⚡ Fast Tools
+      </h3>
+      <p className="text-gray-400 text-sm">
+        Our tools are optimized for speed so you can complete tasks instantly.
+      </p>
+    </div>
+
+    <div className="bg-slate-800 p-8 rounded-xl">
+      <h3 className="text-xl font-semibold mb-3">
+        🔒 Secure
+      </h3>
+      <p className="text-gray-400 text-sm">
+        Your files and data are processed securely and never stored permanently.
+      </p>
+    </div>
+
+    <div className="bg-slate-800 p-8 rounded-xl">
+      <h3 className="text-xl font-semibold mb-3">
+        🌍 Free to Use
+      </h3>
+      <p className="text-gray-400 text-sm">
+        All tools are free to use with no registration required.
+      </p>
+    </div>
+
+  </div>
+
+</section>
     </main>
   );
 }
