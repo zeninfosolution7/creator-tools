@@ -189,6 +189,31 @@ export default function Home() {
   </div>
 
 </section>
+{/* BROWSE ALL TOOLS */}
+
+<section className="bg-slate-800 py-20">
+
+  <div className="max-w-4xl mx-auto text-center px-6">
+
+    <h2 className="text-3xl font-bold mb-6">
+      Explore All Available Tools
+    </h2>
+
+    <p className="text-gray-400 mb-10">
+      Discover dozens of powerful utilities designed for creators,
+      developers and everyday productivity.
+    </p>
+
+    <a
+      href="/tools"
+      className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-lg text-white font-semibold"
+    >
+      Browse All Tools
+    </a>
+
+  </div>
+
+</section>
     </main>
   );
 }
