@@ -20,7 +20,9 @@ export default function Header() {
           <a href="/privacy-policy" className="hover:text-white">
             Privacy
           </a>
-
+		<a href="/contact" className="hover:text-white">
+		  Contact
+		</a>
         </nav>
 
       </div>
