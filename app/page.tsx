@@ -1,11 +1,54 @@
+"use client";
+
+import { Video, FileText, Image, Bot, Code } from "lucide-react";
+import CategoryCard from "../components/CategoryCard";
+
+const categories = [
+  {
+    title: "Creator Tools",
+    description: "YouTube thumbnail downloader, hashtag generator and more.",
+    icon: Video,
+    gradientFrom: "from-purple-500/80",
+    gradientTo: "to-indigo-500/80",
+  },
+  {
+    title: "PDF Tools",
+    description: "Convert, merge, compress and manage PDF files easily.",
+    icon: FileText,
+    gradientFrom: "from-red-500/80",
+    gradientTo: "to-pink-500/80",
+  },
+  {
+    title: "Image Tools",
+    description: "Resize, compress and edit images instantly.",
+    icon: Image,
+    gradientFrom: "from-cyan-500/80",
+    gradientTo: "to-blue-500/80",
+  },
+  {
+    title: "AI Tools",
+    description: "Generate captions, descriptions and creative content.",
+    icon: Bot,
+    gradientFrom: "from-yellow-400/80",
+    gradientTo: "to-orange-500/80",
+  },
+  {
+    title: "Developer Tools",
+    description: "Encode, decode, format and analyze code or data.",
+    icon: Code,
+    gradientFrom: "from-green-500/80",
+    gradientTo: "to-emerald-600/80",
+  },
+];
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 text-white">
 
       {/* HERO SECTION */}
-      <section className="max-w-6xl mx-auto px-6 py-28 text-center">
+      <section className="max-w-6xl mx-auto px-6 py-14 text-center">
 
-        <h1 className="text-5xl md:text-6xl font-bold mb-6">
+        <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6">
           All-in-One Online Tools Platform
         </h1>
 
@@ -31,60 +74,22 @@ export default function Home() {
       </section>
 	{/* TOOL CATEGORIES */}
 
-<section id="tools" className="max-w-6xl mx-auto px-6 py-20">
+<section id="tools" className="max-w-6xl mx-auto px-6 py-14">
 
   <h2 className="text-3xl font-bold text-center mb-12">
     Tool Categories
   </h2>
 
   <div className="grid md:grid-cols-3 gap-6">
-
-    {/* Creator Tools */}
-    <div className="bg-gradient-to-r from-purple-500 to-indigo-500 p-6 rounded-xl shadow-lg hover:scale-105 transition">
-      <h3 className="text-xl font-semibold mb-2">Creator Tools</h3>
-      <p className="text-sm opacity-90">
-        YouTube thumbnail downloader, hashtag generator and more.
-      </p>
-    </div>
-
-    {/* PDF Tools */}
-    <div className="bg-gradient-to-r from-red-500 to-pink-500 p-6 rounded-xl shadow-lg hover:scale-105 transition">
-      <h3 className="text-xl font-semibold mb-2">PDF Tools</h3>
-      <p className="text-sm opacity-90">
-        Convert, merge, compress and manage PDF files easily.
-      </p>
-    </div>
-
-    {/* Image Tools */}
-    <div className="bg-gradient-to-r from-cyan-500 to-blue-500 p-6 rounded-xl shadow-lg hover:scale-105 transition">
-      <h3 className="text-xl font-semibold mb-2">Image Tools</h3>
-      <p className="text-sm opacity-90">
-        Resize, compress and edit images instantly.
-      </p>
-    </div>
-
-    {/* AI Tools */}
-    <div className="bg-gradient-to-r from-yellow-400 to-orange-500 p-6 rounded-xl shadow-lg hover:scale-105 transition">
-      <h3 className="text-xl font-semibold mb-2">AI Tools</h3>
-      <p className="text-sm opacity-90">
-        Generate captions, descriptions and creative content.
-      </p>
-    </div>
-
-    {/* Developer Tools */}
-    <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-6 rounded-xl shadow-lg hover:scale-105 transition">
-      <h3 className="text-xl font-semibold mb-2">Developer Tools</h3>
-      <p className="text-sm opacity-90">
-        Encode, decode, format and analyze code or data.
-      </p>
-    </div>
-
+    {categories.map((category) => (
+      <CategoryCard key={category.title} {...category} />
+    ))}
   </div>
 
 </section>
 {/* POPULAR TOOLS */}
 
-<section className="max-w-6xl mx-auto px-6 py-20">
+<section className="max-w-6xl mx-auto px-6 py-14">
 
   <h2 className="text-3xl font-bold text-center mb-12">
     Popular Tools
@@ -151,7 +156,7 @@ export default function Home() {
 </section>
 {/* WHY CREATORTOOLS */}
 
-<section className="max-w-6xl mx-auto px-6 py-20 text-center">
+<section className="max-w-6xl mx-auto px-6 py-14 text-center">
 
   <h2 className="text-3xl font-bold mb-12">
     Why Choose CreatorTools
@@ -191,7 +196,7 @@ export default function Home() {
 </section>
 {/* BROWSE ALL TOOLS */}
 
-<section className="bg-slate-800 py-20">
+<section className="bg-slate-800 py-14">
 
   <div className="max-w-4xl mx-auto text-center px-6">
 
