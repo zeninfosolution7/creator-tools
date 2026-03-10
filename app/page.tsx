@@ -1,5 +1,8 @@
 "use client";
 
+import { useState, FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Video, FileText, Image, Bot, Code } from "lucide-react";
 import CategoryCard from "../components/CategoryCard";
 
@@ -42,6 +45,19 @@ const categories = [
 ];
 
 export default function Home() {
+  const [heroUrl, setHeroUrl] = useState("");
+  const router = useRouter();
+
+  const handleHeroSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const trimmed = heroUrl.trim();
+    if (!trimmed) return;
+
+    router.push(
+      `/tools/youtube-thumbnail-downloader?url=${encodeURIComponent(trimmed)}`,
+    );
+  };
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 text-white">
 
@@ -58,18 +74,25 @@ export default function Home() {
         </p>
 
         {/* TOOL INPUT */}
-        <div className="max-w-xl mx-auto flex rounded-lg overflow-hidden shadow-xl border border-slate-700">
+        <form
+          onSubmit={handleHeroSubmit}
+          className="max-w-xl mx-auto flex rounded-lg overflow-hidden shadow-xl border border-slate-700"
+        >
+          <input
+            type="text"
+            placeholder="Paste YouTube video URL..."
+            value={heroUrl}
+            onChange={(e) => setHeroUrl(e.target.value)}
+            className="flex-1 px-4 py-3 bg-white text-black outline-none placeholder-gray-500"
+          />
 
-  <input
-    placeholder="Paste YouTube video URL..."
-    className="flex-1 px-4 py-3 bg-white text-black outline-none placeholder-gray-500"
-  />
-
-  <button className="bg-blue-600 hover:bg-blue-500 px-6 py-3 text-white">
-    Get Thumbnail
-  </button>
-
-</div>
+          <button
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-500 px-6 py-3 text-white"
+          >
+            Download Thumbnail
+          </button>
+        </form>
 
       </section>
 	{/* TOOL CATEGORIES */}
@@ -97,14 +120,19 @@ export default function Home() {
 
   <div className="grid md:grid-cols-3 gap-6">
 
-    <div className="bg-slate-800 p-6 rounded-xl shadow hover:scale-105 transition">
-      <h3 className="text-xl font-semibold mb-2">
-        YouTube Thumbnail Downloader
-      </h3>
-      <p className="text-gray-400 text-sm">
-        Download high quality thumbnails from any YouTube video.
-      </p>
-    </div>
+    <Link
+      href="/tools/youtube-thumbnail-downloader"
+      className="block focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-xl"
+    >
+      <div className="bg-slate-800 p-6 rounded-xl shadow hover:scale-105 transition">
+        <h3 className="text-xl font-semibold mb-2">
+          YouTube Thumbnail Downloader
+        </h3>
+        <p className="text-gray-400 text-sm">
+          Download high quality thumbnails from any YouTube video.
+        </p>
+      </div>
+    </Link>
 
     <div className="bg-slate-800 p-6 rounded-xl shadow hover:scale-105 transition">
       <h3 className="text-xl font-semibold mb-2">
