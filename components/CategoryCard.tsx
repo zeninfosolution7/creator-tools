@@ -3,11 +3,11 @@
 import { LucideIcon } from "lucide-react";
 
 interface CategoryCardProps {
-  title: string;
-  description: string;
-  icon: LucideIcon;
-  gradientFrom: string;
-  gradientTo: string;
+title: string
+description: string
+icon?: LucideIcon
+gradientFrom: string
+gradientTo: string
 }
 
 export default function CategoryCard({
@@ -67,9 +67,15 @@ export default function CategoryCard({
       <div className="relative z-10">
 
         {/* icon */}
-        <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm border border-white/10 mb-4">
-          <Icon className="w-6 h-6 text-white" />
-        </div>
+        {/* icon placeholder */}
+		{/* icon */}
+<div className="w-12 h-12 flex items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm border border-white/10 mb-4">
+  {Icon ? (
+    <Icon className="w-6 h-6 text-white" />
+  ) : (
+    <div className="w-6 h-6 bg-white/40 rounded"></div>
+  )}
+</div>
 
         {/* title */}
         <h3 className="text-xl font-semibold text-white mb-2">

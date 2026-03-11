@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Video, FileText, Image, Bot, Code } from "lucide-react";
 import CategoryCard from "../components/CategoryCard";
+import { tools } from "@/lib/tools";
 
 const categories = [
   {
@@ -119,67 +120,17 @@ export default function Home() {
   </h2>
 
   <div className="grid md:grid-cols-3 gap-6">
-
-    <Link
-      href="/tools/youtube-thumbnail-downloader"
-      className="block focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-xl"
-    >
-      <div className="bg-slate-800 p-6 rounded-xl shadow hover:scale-105 transition">
-        <h3 className="text-xl font-semibold mb-2">
-          YouTube Thumbnail Downloader
-        </h3>
-        <p className="text-gray-400 text-sm">
-          Download high quality thumbnails from any YouTube video.
-        </p>
-      </div>
-    </Link>
-
-    <div className="bg-slate-800 p-6 rounded-xl shadow hover:scale-105 transition">
-      <h3 className="text-xl font-semibold mb-2">
-        PDF to Word Converter
-      </h3>
-      <p className="text-gray-400 text-sm">
-        Convert PDF files into editable Word documents.
-      </p>
-    </div>
-
-    <div className="bg-slate-800 p-6 rounded-xl shadow hover:scale-105 transition">
-      <h3 className="text-xl font-semibold mb-2">
-        Image Compressor
-      </h3>
-      <p className="text-gray-400 text-sm">
-        Reduce image file size without losing quality.
-      </p>
-    </div>
-
-    <div className="bg-slate-800 p-6 rounded-xl shadow hover:scale-105 transition">
-      <h3 className="text-xl font-semibold mb-2">
-        QR Code Generator
-      </h3>
-      <p className="text-gray-400 text-sm">
-        Generate QR codes instantly for links and text.
-      </p>
-    </div>
-
-    <div className="bg-slate-800 p-6 rounded-xl shadow hover:scale-105 transition">
-      <h3 className="text-xl font-semibold mb-2">
-        Hashtag Generator
-      </h3>
-      <p className="text-gray-400 text-sm">
-        Generate trending hashtags for social media posts.
-      </p>
-    </div>
-
-    <div className="bg-slate-800 p-6 rounded-xl shadow hover:scale-105 transition">
-      <h3 className="text-xl font-semibold mb-2">
-        Base64 Encoder
-      </h3>
-      <p className="text-gray-400 text-sm">
-        Encode and decode Base64 text quickly.
-      </p>
-    </div>
-
-  </div>
+  {tools.slice(0,6).map((tool) => (
+  <Link key={tool.slug} href={`/tools/${tool.slug}`}>
+    <CategoryCard
+      title={tool.title}
+      description={tool.description}
+      gradientFrom={tool.gradientFrom}
+      gradientTo={tool.gradientTo}
+    />
+  </Link>
+))}
+</div>
 
 </section>
 {/* WHY CREATORTOOLS */}
