@@ -1,40 +1,94 @@
-import React, { type ComponentType } from "react";
-import ToolLayout from "@/components/ToolLayout";
-import YoutubeThumbnailTool from "@/components/tools/YoutubeThumbnailTool";
-import { getToolBySlug, type ToolComponentId } from "@/lib/tools";
-import { notFound } from "next/navigation";
+import { getToolBySlug, tools } from "@/lib/tools"
+import { notFound } from "next/navigation"
+import { toolComponents } from "@/lib/toolComponents"
+import Link from "next/link"
 
-type ToolPageProps = {
-  params: Promise<{
-    tool: string;
-  }>;
-};
+import ToolLayout from "@/components/ToolLayout"
+import Breadcrumb from "@/components/Breadcrumb"
 
-const componentMap: Record<ToolComponentId, ComponentType> = {
-  YoutubeThumbnailTool,
-};
+import YoutubeThumbnailTool from "@/components/tools/YoutubeThumbnailTool"
+import PasswordGeneratorTool from "@/components/tools/PasswordGeneratorTool"
+import WordCounterTool from "@/components/tools/WordCounterTool"
+import JsonFormatterTool from "@/components/tools/JsonFormatterTool"
 
-export default function ToolPage({ params }: ToolPageProps) {
-  const { tool: slug } = React.use(params);
+export async function generateMetadata({ params }: any) {
 
-  const tool = getToolBySlug(slug);
+const tool = getToolBySlug((await params).tool)
 
-  if (!tool) {
-    notFound();
-  }
+if (!tool) return {}
 
-  const ToolComponent = componentMap[tool.component];
-
-  if (!ToolComponent) {
-    notFound();
-  }
-
-  return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 text-white">
-      <ToolLayout title={tool.title} description={tool.description}>
-        <ToolComponent />
-      </ToolLayout>
-    </main>
-  );
+return {
+  title: `${tool.title} | CreatorTools`,
+  description: tool.description,
+}
 }
 
+export default async function ToolPage({
+  params,
+}: {
+  params: Promise<{ tool: string }>
+}) {
+
+  const { tool } = await params
+
+  const toolData = getToolBySlug(tool)
+
+  if (!toolData) {
+    return notFound()
+  }
+
+  const ToolComponent =
+  toolData.component
+    ? toolComponents[toolData.component as keyof typeof toolComponents]
+    : null
+
+return (
+  <>
+    {/* Breadcrumb */}
+    <div className="bg-slate-900">
+      <div className="max-w-3xl mx-auto px-6 pt-6 pb-2">
+        <Breadcrumb
+          category={toolData.category}
+          toolTitle={toolData.title}
+        />
+      </div>
+    </div>
+
+    {/* Tool Layout */}
+    <ToolLayout
+      title={toolData.title}
+      description={toolData.description}
+    >
+      {/* Tool UI */}
+      {ToolComponent ? <ToolComponent /> : "Tool coming soon."}
+
+      {/* Related Tools */}
+      <div className="mt-16">
+        <h2 className="text-2xl font-semibold mb-6">Related Tools</h2>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {tools
+            .filter(
+              (t) =>
+                t.category === toolData.category &&
+                t.slug !== toolData.slug
+            )
+            .slice(0, 6)
+            .map((tool) => (
+              <Link
+                key={tool.slug}
+                href={`/tools/${tool.slug}`}
+                className="bg-slate-800 hover:bg-slate-700 p-4 rounded-lg transition transform hover:-translate-y-1 hover:shadow-xl"
+              >
+                <h3 className="font-semibold">{tool.title}</h3>
+                <p className="text-sm text-gray-400">
+                  {tool.description}
+                </p>
+              </Link>
+            ))}
+        </div>
+      </div>
+    </ToolLayout>
+  </>
+)
+}

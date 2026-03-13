@@ -1,31 +1,39 @@
-import { MetadataRoute } from "next";
+import { tools } from "@/lib/tools"
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://creatortools.co.in";
+export default function sitemap() {
 
-  const tools = [
-    "youtube-thumbnail-downloader",
-    "youtube-tag-extractor",
-    "youtube-title-generator",
-    "youtube-description-generator",
-    "youtube-channel-id-finder",
-    "instagram-hashtag-generator",
-    "instagram-caption-generator",
-    "instagram-bio-generator",
-    "tiktok-caption-generator",
-    "tiktok-hashtag-generator",
-  ];
+  const baseUrl = "https://www.creatortools.co.in"
 
+  // Tool pages
   const toolPages = tools.map((tool) => ({
-    url: `${baseUrl}/tools/${tool}`,
+    url: `${baseUrl}/tools/${tool.slug}`,
     lastModified: new Date(),
-  }));
+  }))
+
+  // Category pages
+  const categories = [...new Set(tools.map((tool) => tool.category))]
+
+  const categoryPages = categories.map((category) => ({
+    url: `${baseUrl}/categories/${category}`,
+    lastModified: new Date(),
+  }))
 
   return [
+
     {
       url: baseUrl,
       lastModified: new Date(),
     },
+
+    {
+      url: `${baseUrl}/tools`,
+      lastModified: new Date(),
+    },
+
     ...toolPages,
-  ];
+
+    ...categoryPages,
+
+  ]
+
 }

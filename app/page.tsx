@@ -3,9 +3,10 @@
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Video, FileText, Image, Bot, Code } from "lucide-react";
+import { Video, FileText, Image, Bot, Code, Calculator } from "lucide-react";
 import CategoryCard from "../components/CategoryCard";
 import { tools } from "@/lib/tools";
+import HomeCategoryCard from "@/components/HomeCategoryCard"
 
 const categories = [
   {
@@ -14,6 +15,7 @@ const categories = [
     icon: Video,
     gradientFrom: "from-purple-500/80",
     gradientTo: "to-indigo-500/80",
+	href: "/categories/creator"
   },
   {
     title: "PDF Tools",
@@ -21,6 +23,7 @@ const categories = [
     icon: FileText,
     gradientFrom: "from-red-500/80",
     gradientTo: "to-pink-500/80",
+	href: "/categories/pdf",
   },
   {
     title: "Image Tools",
@@ -28,6 +31,7 @@ const categories = [
     icon: Image,
     gradientFrom: "from-cyan-500/80",
     gradientTo: "to-blue-500/80",
+	href: "/categories/image",
   },
   {
     title: "AI Tools",
@@ -35,6 +39,7 @@ const categories = [
     icon: Bot,
     gradientFrom: "from-yellow-400/80",
     gradientTo: "to-orange-500/80",
+	href: "/categories/AI",
   },
   {
     title: "Developer Tools",
@@ -42,22 +47,31 @@ const categories = [
     icon: Code,
     gradientFrom: "from-green-500/80",
     gradientTo: "to-emerald-600/80",
+	href: "/categories/developer",
   },
+   {
+    title: "Math Tools",
+    description: "Age calculator, percentage calculator and other useful math tools.",
+    icon: Calculator,
+    gradientFrom: "from-teal-500/80",
+    gradientTo: "to-green-500/80",
+	href: "/categories/math",
+  }
 ];
 
 export default function Home() {
   const [heroUrl, setHeroUrl] = useState("");
   const router = useRouter();
 
-  const handleHeroSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const trimmed = heroUrl.trim();
-    if (!trimmed) return;
+  function handleHeroSubmit(e: React.FormEvent) {
+  e.preventDefault()
 
-    router.push(
-      `/tools/youtube-thumbnail-downloader?url=${encodeURIComponent(trimmed)}`,
-    );
-  };
+  if (!heroUrl) return
+
+  router.push(
+    `/tools/youtube-thumbnail-downloader?url=${encodeURIComponent(heroUrl)}`
+  )
+};
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 text-white">
@@ -98,16 +112,28 @@ export default function Home() {
       </section>
 	{/* TOOL CATEGORIES */}
 
-<section id="tools" className="max-w-6xl mx-auto px-6 py-14">
+<section id="tools" className="max-w-6xl mx-auto px-6 py-16">
 
   <h2 className="text-3xl font-bold text-center mb-12">
     Tool Categories
   </h2>
 
   <div className="grid md:grid-cols-3 gap-6">
-    {categories.map((category) => (
-      <CategoryCard key={category.title} {...category} />
+
+    {categories.map((cat) => (
+
+      <HomeCategoryCard
+        key={cat.title}
+        title={cat.title}
+        description={cat.description}
+        icon={cat.icon}
+        colorFrom={cat.gradientFrom}
+        colorTo={cat.gradientTo}
+		href={cat.href}
+      />
+
     ))}
+
   </div>
 
 </section>
