@@ -33,7 +33,7 @@ export default function PdfUnlockTool() {
 
       const bytes = await newPdf.save()
 
-      const blob = new Blob([bytes.buffer], { type: "application/pdf" })
+      const blob = new Blob([new Uint8Array(bytes)], { type: "application/pdf" })
 
       const url = URL.createObjectURL(blob)
 
