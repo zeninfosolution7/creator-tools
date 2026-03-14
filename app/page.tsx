@@ -3,7 +3,7 @@
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Video, FileText, Image, Bot, Code, Calculator } from "lucide-react";
+import { Video, FileText, Image, Bot, Code, Calculator, Unlock } from "lucide-react";
 import CategoryCard from "../components/CategoryCard";
 import { tools } from "@/lib/tools";
 import HomeCategoryCard from "@/components/HomeCategoryCard"
@@ -201,7 +201,7 @@ export default function Home() {
 </section>
 {/* BROWSE ALL TOOLS */}
 
-<section className="bg-slate-800 py-14">
+<section className="bg-slate-950 py-20 text-center">
 
   <div className="max-w-4xl mx-auto text-center px-6">
 

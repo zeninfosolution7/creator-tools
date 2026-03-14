@@ -10,7 +10,8 @@ import {
   Dice6,
   Palette,
   Type,
-  Image
+  Image,
+  Unlock
 } from "lucide-react"
 
 export type ToolDefinition = {
@@ -36,7 +37,7 @@ gradientFrom: "from-red-500",
 gradientTo: "to-pink-500",
 popular: true,
 component: "YoutubeThumbnailTool",
-category: "youtube",
+category: "creator",
 keywords: [
 "youtube thumbnail downloader",
 "download youtube thumbnail",
@@ -114,6 +115,15 @@ title: "Image Compressor",
 description: "Compress images online",
 icon: Image,
 category: "image"
+},
+{
+slug: "unlock-pdf",
+title: "Unlock PDF",
+description: "Remove restrictions and unlock protected PDF files.",
+icon: Unlock,
+component: "PdfUnlockTool",
+category: "pdf",
+popular: true
 }
 ]
 
