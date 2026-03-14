@@ -7,8 +7,9 @@ interface BreadcrumbProps {
 
 export default function Breadcrumb({ category, toolTitle }: BreadcrumbProps) {
 
-  const categoryTitle =
-    category?.charAt(0).toUpperCase() + category?.slice(1)
+ const categoryTitle = category
+  ? category.charAt(0).toUpperCase() + category.slice(1)
+  : ""
 
   return (
 

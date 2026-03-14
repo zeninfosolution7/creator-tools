@@ -42,3 +42,8 @@ next-env.d.ts
 
 # ignore zip files
 *.zip
+*.rar
+*.7z
+node_modules
+.next
+.env
