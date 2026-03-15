@@ -89,25 +89,29 @@ export default function Home() {
         </p>
 
         {/* TOOL INPUT */}
-        <form
-          onSubmit={handleHeroSubmit}
-          className="max-w-xl mx-auto flex rounded-lg overflow-hidden shadow-xl border border-slate-700"
-        >
-          <input
-            type="text"
-            placeholder="Paste YouTube video URL..."
-            value={heroUrl}
-            onChange={(e) => setHeroUrl(e.target.value)}
-            className="flex-1 px-4 py-3 bg-white text-black outline-none placeholder-gray-500"
-          />
+       {/* TOOL INPUT */}
+		<form
+		  onSubmit={handleHeroSubmit}
+		  className="max-w-xl mx-auto flex flex-col sm:flex-row gap-3"
+		>
 
-          <button
-            type="submit"
-            className="bg-blue-600 hover:bg-blue-500 px-6 py-3 text-white"
-          >
-            Download Thumbnail
-          </button>
-        </form>
+		  <input
+			type="text"
+			placeholder="Paste YouTube video URL..."
+			value={heroUrl}
+			onChange={(e) => setHeroUrl(e.target.value)}
+			className="flex-1 px-4 py-3 bg-white text-black rounded-lg outline-none placeholder-gray-500"
+		  />
+
+		  <button
+			type="submit"
+			className="bg-blue-600 hover:bg-blue-500 px-6 py-3 text-white rounded-lg"
+		  >
+			Download Thumbnail
+		  </button>
+
+		</form>
+
 
       </section>
 	{/* TOOL CATEGORIES */}
