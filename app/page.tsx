@@ -90,25 +90,30 @@ export default function Home() {
 
         {/* TOOL INPUT */}
        {/* TOOL INPUT */}
+{/* TOOL INPUT */}
 		<form
 		  onSubmit={handleHeroSubmit}
-		  className="max-w-xl mx-auto flex flex-col sm:flex-row gap-3"
+		  className="max-w-xl mx-auto mt-6"
 		>
 
-		  <input
-			type="text"
-			placeholder="Paste YouTube video URL..."
-			value={heroUrl}
-			onChange={(e) => setHeroUrl(e.target.value)}
-			className="flex-1 px-4 py-3 bg-white text-black rounded-lg outline-none placeholder-gray-500"
-		  />
+		  <div className="flex flex-col md:flex-row gap-3">
 
-		  <button
-			type="submit"
-			className="bg-blue-600 hover:bg-blue-500 px-6 py-3 text-white rounded-lg"
-		  >
-			Download Thumbnail
-		  </button>
+			<input
+			  type="text"
+			  placeholder="Paste YouTube video URL..."
+			  value={heroUrl}
+			  onChange={(e) => setHeroUrl(e.target.value)}
+			  className="w-full px-4 py-3 rounded-lg bg-white text-black outline-none placeholder-gray-500"
+			/>
+
+			<button
+			  type="submit"
+			  className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-lg font-medium"
+			>
+			  Download Thumbnail
+			</button>
+
+		  </div>
 
 		</form>
 

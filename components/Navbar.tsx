@@ -1,77 +1,81 @@
 "use client"
 
-import Link from "next/link"
 import { useState } from "react"
+import Link from "next/link"
 import { Menu, X } from "lucide-react"
 
 export default function Navbar() {
+  const [open, setOpen] = useState(false)
 
-const [open, setOpen] = useState(false)
+  return (
+    <header className="bg-slate-900 border-b border-slate-800">
+      <div className="max-w-7xl mx-auto px-4">
 
-return (
+        <div className="flex items-center justify-between h-16">
 
-<nav className="bg-slate-900 text-white border-b border-slate-800">
+          {/* Logo */}
+          <Link
+            href="/"
+            className="text-white font-bold text-lg"
+          >
+            CreatorTools
+          </Link>
 
-<div className="max-w-7xl mx-auto px-4">
+          {/* Desktop Menu */}
+          <nav className="hidden md:flex items-center gap-6 text-sm text-slate-200">
 
-<div className="flex items-center justify-between h-16">
+            <Link href="/">Home</Link>
+            <Link href="/categories/artificial-intelligence">AI Tools</Link>
+            <Link href="/categories/creator">Creator Tools</Link>
+            <Link href="/tools">All Tools</Link>
 
-{/* Logo */}
-<Link href="/" className="flex items-center gap-2 font-bold text-lg">
-CreatorTools
-</Link>
+          </nav>
 
-{/* Desktop Menu */}
-<div className="hidden md:flex gap-6">
+          {/* Mobile Button */}
+          <button
+            className="md:hidden text-white"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X size={26} /> : <Menu size={26} />}
+          </button>
 
-<Link href="/">Home</Link>
+        </div>
 
-<Link href="/tools">Tools</Link>
+      </div>
 
-<Link href="/privacy">Privacy</Link>
+      {/* Mobile Menu */}
+      {open && (
+        <div className="md:hidden bg-slate-900 border-t border-slate-800">
+          <div className="flex flex-col p-4 space-y-3 text-slate-200">
 
-<Link href="/contact">Contact</Link>
+            <Link href="/" onClick={() => setOpen(false)}>
+              Home
+            </Link>
 
-</div>
+            <Link
+              href="/categories/artificial-intelligence"
+              onClick={() => setOpen(false)}
+            >
+              AI Tools
+            </Link>
 
-{/* Mobile Menu Button */}
-<button
-onClick={() => setOpen(!open)}
-className="md:hidden"
->
+            <Link
+              href="/categories/creator"
+              onClick={() => setOpen(false)}
+            >
+              Creator Tools
+            </Link>
 
-{open ? <X size={26} /> : <Menu size={26} />}
+            <Link
+              href="/tools"
+              onClick={() => setOpen(false)}
+            >
+              All Tools
+            </Link>
 
-</button>
-
-</div>
-
-</div>
-
-{/* Mobile Menu */}
-
-{open && (
-
-<div className="md:hidden bg-slate-900 border-t border-slate-800">
-
-<div className="flex flex-col p-4 gap-4">
-
-<Link href="/" onClick={()=>setOpen(false)}>Home</Link>
-
-<Link href="/tools" onClick={()=>setOpen(false)}>Tools</Link>
-
-<Link href="/privacy" onClick={()=>setOpen(false)}>Privacy</Link>
-
-<Link href="/contact" onClick={()=>setOpen(false)}>Contact</Link>
-
-</div>
-
-</div>
-
-)}
-
-</nav>
-
-)
-
+          </div>
+        </div>
+      )}
+    </header>
+  )
 }
