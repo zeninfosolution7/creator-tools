@@ -28,7 +28,7 @@ Search,
 PenLine,
 Lightbulb,
 User,
-AlignLeft
+AlignLeft,
 } from "lucide-react"
 
 export type ToolDefinition = {
@@ -342,6 +342,15 @@ description: "Generate captions for Instagram, Facebook and social media posts."
 icon: Image,
 component: "AiCaptionGeneratorTool",
 category: "artificial-intelligence",
+popular: true
+},
+{
+slug: "land-unit-converter-india",
+title: "Land Unit Converter (India)",
+description: "Convert land units like bigha, guntha, acre, hectare, square feet and more.",
+icon: Ruler,
+component: "LandUnitConverterTool",
+category: "math",
 popular: true
 }
 

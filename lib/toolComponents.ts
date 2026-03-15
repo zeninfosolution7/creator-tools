@@ -23,8 +23,7 @@ import AiBlogIdeaGeneratorTool from "@/components/tools/AiBlogIdeaGeneratorTool"
 import AiUsernameGeneratorTool from "@/components/tools/AiUsernameGeneratorTool"
 import AiMetaDescriptionGeneratorTool from "@/components/tools/AiMetaDescriptionGeneratorTool"
 import AiCaptionGeneratorTool from "@/components/tools/AiCaptionGeneratorTool"
-
-
+import LandUnitConverterTool from "@/components/tools/LandUnitConverterTool"
 
 export const toolComponents = {
   YoutubeThumbnailTool,
@@ -51,5 +50,6 @@ AiTextSummarizerTool,
   AiBlogIdeaGeneratorTool,
   AiUsernameGeneratorTool,
   AiMetaDescriptionGeneratorTool,
-  AiCaptionGeneratorTool
+  AiCaptionGeneratorTool,
+  LandUnitConverterTool
 }
