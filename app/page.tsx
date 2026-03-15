@@ -39,14 +39,14 @@ const categories = [
     icon: Bot,
     gradientFrom: "from-yellow-400/80",
     gradientTo: "to-orange-500/80",
-	href: "/categories/AI",
+	href: "/categories/artificial-intelligence",
   },
   {
     title: "Developer Tools",
     description: "Encode, decode, format and analyze code or data.",
     icon: Code,
-    gradientFrom: "from-green-500/80",
-    gradientTo: "to-emerald-600/80",
+    gradientFrom: "from-indigo-500",
+	gradientTo: "to-cyan-400",
 	href: "/categories/developer",
   },
    {

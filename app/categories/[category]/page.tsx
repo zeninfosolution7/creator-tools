@@ -4,17 +4,24 @@ import Link from "next/link"
 export default async function CategoryPage({
   params,
 }: {
-  params: Promise<{ category: string }>
+  params: any
 }) {
 
-  const { category } = await params
+  const category =
+    typeof params?.then === "function"
+      ? (await params).category
+      : params?.category
+
+  const categorySlug = (category || "").toLowerCase()
 
   const categoryTools = tools.filter(
-    (tool) => tool.category === category
+    (tool) => tool.category?.toLowerCase() === categorySlug
   )
 
   const title =
-    category.charAt(0).toUpperCase() + category.slice(1)
+    categorySlug.charAt(0).toUpperCase() + categorySlug.slice(1)
+
+
 
   return (
 
