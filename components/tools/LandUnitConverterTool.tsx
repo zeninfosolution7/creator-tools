@@ -37,7 +37,9 @@ useEffect(()=>{
   { key: "bigha", label: "Bigha", factor: stateData.bigha },
 ]
 
-const stateRegionalUnits = regionalUnits[stateKey] || []
+const stateRegionalUnits =
+  regionalUnits[stateKey as keyof typeof regionalUnits] || []
+
 
 
   const units = [
