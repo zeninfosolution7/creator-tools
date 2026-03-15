@@ -5,7 +5,7 @@ import { landStates } from "@/lib/landStates"
 import { regionalUnits } from "@/lib/regionalUnits"
 
 type Props = {
-  state?: keyof typeof landStates
+  state?: string
 }
 
 export default function LandUnitConverterTool({ state }: Props) {
