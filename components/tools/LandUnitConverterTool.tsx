@@ -5,13 +5,13 @@ import { landStates } from "@/lib/landStates"
 import { regionalUnits } from "@/lib/regionalUnits"
 
 type Props = {
-  state?: string
+  state?: keyof typeof landStates
 }
 
 export default function LandUnitConverterTool({ state }: Props) {
 
-const initialState =
-  state && landStates[state] ? state : "english"
+const initialState: keyof typeof landStates =
+  state && state in landStates ? state : "english"
 
 const [stateKey, setStateKey] = useState(initialState)
 
