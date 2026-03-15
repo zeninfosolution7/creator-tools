@@ -11,11 +11,13 @@ type Props = {
 export default function LandUnitConverterTool({ state }: Props) {
 
 const initialState: keyof typeof landStates =
-  state && state in landStates ? state : "english"
+  state && state in landStates
+    ? (state as keyof typeof landStates)
+    : "english"
 
-const [stateKey, setStateKey] = useState(initialState)
+const [stateKey, setStateKey] = useState<keyof typeof landStates>(initialState)
 
-const stateData = landStates[stateKey] || landStates["english"]
+const stateData = landStates[stateKey]
 
 useEffect(()=>{
   setValues({})
