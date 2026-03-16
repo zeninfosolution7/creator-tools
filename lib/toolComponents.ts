@@ -24,6 +24,7 @@ import AiUsernameGeneratorTool from "@/components/tools/AiUsernameGeneratorTool"
 import AiMetaDescriptionGeneratorTool from "@/components/tools/AiMetaDescriptionGeneratorTool"
 import AiCaptionGeneratorTool from "@/components/tools/AiCaptionGeneratorTool"
 import LandUnitConverterTool from "@/components/tools/LandUnitConverterTool"
+import PlotAreaCalculatorTool from "@/components/tools/PlotAreaCalculatorTool"
 
 export const toolComponents = {
   YoutubeThumbnailTool,
@@ -51,5 +52,6 @@ AiTextSummarizerTool,
   AiUsernameGeneratorTool,
   AiMetaDescriptionGeneratorTool,
   AiCaptionGeneratorTool,
-  LandUnitConverterTool
+  LandUnitConverterTool,
+  PlotAreaCalculatorTool
 }

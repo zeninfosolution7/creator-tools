@@ -1,32 +1,35 @@
 "use client"
 
 import { useState, useEffect } from "react"
-
 import { landStates } from "@/lib/landStates"
 import { regionalUnits } from "@/lib/regionalUnits"
 
 type Props = {
 state?: string
+initialArea?: number
+initialUnit?: "feet" | "meter" | "yard"
 }
 
-type Values = Record<string,string>
+type Values = Record<string, string>
 
-export default function LandUnitConverterTool({ state }: Props) {
+export default function LandUnitConverterTool({
+state,
+initialArea,
+initialUnit
+}: Props) {
 
 const initialState =
-  state && landStates[state] ? state : "english"
+state && landStates[state] ? state : "english"
 
-const [stateKey, setStateKey] = useState(initialState)
+const [stateKey,setStateKey] = useState(initialState)
 
 const stateData = landStates[stateKey]
 
 const labels = stateData.labels ?? {}
 
-const [values, setValues] = useState<Record<string, string>>({})
+const [values,setValues] = useState<Values>({})
 
-useEffect(()=>{
-setValues({})
-},[stateKey])
+/* BASE UNITS */
 
 const baseUnits = [
 { key:"acre",label:"Acre",factor:4046.856422 },
@@ -42,22 +45,16 @@ const baseUnits = [
 { key:"bigha",label:"Bigha",factor:stateData.bigha }
 ]
 
-const stateRegionalUnits = regionalUnits[stateKey] ?? []
-
+const stateRegionalUnits =
+regionalUnits[stateKey] ?? []
 
 const units = [...baseUnits,...stateRegionalUnits]
 
-function handleChange(key:string,val:string){
-setValues(prev=>({
-...prev,
-[key]:val
-}))
-}
+/* CONVERSION */
 
-function convert(unitKey:string){
+function convert(unitKey:string,valueStr:string){
 
-
-const value = parseFloat(values[unitKey])
+const value = parseFloat(valueStr)
 
 if(isNaN(value)) return
 
@@ -70,67 +67,98 @@ const sqm = value * unit.factor
 const updated:Values = {}
 
 units.forEach(u=>{
-  updated[u.key] = (sqm / u.factor).toFixed(6)
+updated[u.key] = (sqm / u.factor).toFixed(6)
 })
 
 setValues(updated)
 
+}
+
+/* USER INPUT */
+
+function handleChange(key:string,val:string){
+
+setValues(prev=>({
+...prev,
+[key]:val
+}))
 
 }
 
-return (
+/* AUTO-FILL FROM PLOT CALCULATOR */
 
+useEffect(()=>{
+
+if(initialArea === undefined || initialArea === null) return
+
+let key = "sqft"
+
+if(initialUnit === "meter") key = "sqm"
+if(initialUnit === "yard") key = "sqyd"
+
+convert(key,initialArea.toString())
+
+},[initialArea,initialUnit])
+
+/* RESET WHEN STATE CHANGES */
+
+useEffect(()=>{
+setValues({})
+},[stateKey])
+
+return (
 
 <div className="space-y-6">
 
-  {/* STATE SELECT */}
+{/* STATE SELECT */}
 
-  <div>
-    <select
-      value={stateKey}
-      onChange={(e)=>setStateKey(e.target.value)}
-      className="px-3 py-2 rounded bg-white text-black"
-    >
+<div>
 
-    {Object.entries(landStates).map(([key,s])=>(
-      <option key={key} value={key}>
-        {s.name}
-      </option>
-    ))}
+<select
+value={stateKey}
+onChange={(e)=>setStateKey(e.target.value)}
+className="px-3 py-2 rounded bg-slate-700 text-white"
 
-    </select>
-  </div>
+>
 
-  {/* CONVERTER */}
+{Object.entries(landStates).map(([key,s])=>(
 
-  <div className="max-w-3xl mx-auto space-y-4">
+<option key={key} value={key}>
+{s.name}
+</option>
+))}
 
-    {units.map(unit=>(
-      <div key={unit.key} className="flex flex-col md:flex-row gap-2">
-
-        <label className="md:w-48 text-sm text-slate-300">
-          {labels[unit.key] ?? unit.label}
-        </label>
-
-        <input
-          type="text"
-          value={values[unit.key] ?? ""}
-          onChange={(e)=>handleChange(unit.key,e.target.value)}
-          onBlur={()=>convert(unit.key)}
-          onKeyDown={(e)=>{
-            if(e.key==="Enter") convert(unit.key)
-          }}
-          className="flex-1 px-4 py-2 rounded bg-white text-black"
-          placeholder="Enter value"
-        />
-
-      </div>
-    ))}
-
-  </div>
+</select>
 
 </div>
 
+{/* CONVERTER */}
+
+<div className="max-w-3xl mx-auto space-y-4">
+
+{units.map(unit=>(
+
+<div key={unit.key} className="flex flex-col md:flex-row gap-2">
+
+<label className="md:w-48 text-sm text-slate-300">
+{labels[unit.key] ?? unit.label}
+</label>
+
+<input
+type="text"
+value={values[unit.key] ?? ""}
+onChange={(e)=>handleChange(unit.key,e.target.value)}
+onBlur={()=>convert(unit.key,values[unit.key])}
+className="flex-1 px-4 py-2 rounded bg-slate-700 text-white"
+placeholder="Enter value"
+/>
+
+</div>
+))}
+
+</div>
+
+</div>
 
 )
 

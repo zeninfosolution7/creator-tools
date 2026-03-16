@@ -352,6 +352,15 @@ icon: Ruler,
 component: "LandUnitConverterTool",
 category: "math",
 popular: true
+},
+{
+  slug: "plot-area-calculator",
+  title: "Plot Area Calculator",
+  description: "Calculate land area using width and height and convert into land units.",
+  icon: Ruler,
+  component: "PlotAreaCalculatorTool",
+  category: "calculator",
+  popular: true
 }
 
 
