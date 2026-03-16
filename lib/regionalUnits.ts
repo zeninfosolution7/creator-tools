@@ -1,4 +1,6 @@
-export const regionalUnits = {
+import { RegionalUnits } from "./landTypes"
+
+export const regionalUnits: RegionalUnits = {
 
   uttar_pradesh:[
     { key:"biswa", label:"Biswa", factor:125.418 }

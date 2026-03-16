@@ -1,3 +1,5 @@
+import { LandStates } from "./landTypes"
+
 export const landStates = {
 english:{
 name:"Default (English)",

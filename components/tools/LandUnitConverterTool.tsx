@@ -1,8 +1,11 @@
 "use client"
 
 import { useState, useEffect } from "react"
+
 import { landStates } from "@/lib/landStates"
 import { regionalUnits } from "@/lib/regionalUnits"
+
+import type { LandUnit } from "@/lib/landTypes"
 
 type Props = {
   state?: string
