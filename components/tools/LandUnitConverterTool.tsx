@@ -86,7 +86,10 @@ const stateRegionalUnits =
       <div>
         <select
           value={stateKey}
-          onChange={(e) => setStateKey(e.target.value)}
+          onChange={(e) =>
+  setStateKey(e.target.value as keyof typeof landStates)
+}
+
           className="px-3 py-2 rounded bg-white text-black"
         >
 		{Object.entries(landStates).map(([key, s]) => (
