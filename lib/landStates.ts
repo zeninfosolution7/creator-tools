@@ -1,6 +1,7 @@
-import { LandStates } from "./landTypes"
+import type { LandStates } from "./landTypes"
 
-export const landStates = {
+export const landStates: LandStates = {
+
 english:{
 name:"Default (English)",
 lang:"en",
@@ -116,5 +117,4 @@ kerala:{name:"Kerala",lang:"ml",bigha:2529},
 karnataka:{name:"Karnataka",lang:"kn",bigha:2529},
 telangana:{name:"Telangana",lang:"te",bigha:2529},
 andhra_pradesh:{name:"Andhra Pradesh",lang:"te",bigha:2529}
-
 }

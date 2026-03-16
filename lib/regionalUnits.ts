@@ -1,4 +1,4 @@
-import { RegionalUnits } from "./landTypes"
+import type { RegionalUnits } from "./landTypes"
 
 export const regionalUnits: RegionalUnits = {
 

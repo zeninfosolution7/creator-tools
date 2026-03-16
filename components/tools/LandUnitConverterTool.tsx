@@ -14,15 +14,15 @@ type Values = Record<string,string>
 export default function LandUnitConverterTool({ state }: Props) {
 
 const initialState =
-state && state in landStates ? state : "english"
+  state && landStates[state] ? state : "english"
 
-const [stateKey,setStateKey] = useState(initialState)
+const [stateKey, setStateKey] = useState(initialState)
 
-const stateData = landStates[stateKey] || landStates["english"]
+const stateData = landStates[stateKey]
 
 const labels = stateData.labels ?? {}
 
-const [values,setValues] = useState<Values>({})
+const [values, setValues] = useState<Record<string, string>>({})
 
 useEffect(()=>{
 setValues({})
@@ -42,8 +42,8 @@ const baseUnits = [
 { key:"bigha",label:"Bigha",factor:stateData.bigha }
 ]
 
-const stateRegionalUnits =
-regionalUnits[stateKey as keyof typeof regionalUnits] ?? []
+const stateRegionalUnits = regionalUnits[stateKey] ?? []
+
 
 const units = [...baseUnits,...stateRegionalUnits]
 
