@@ -56,7 +56,7 @@ setValues(prev=>({
 
 function convert(unitKey:string){
 
-```
+
 const value = parseFloat(values[unitKey])
 
 if(isNaN(value)) return
@@ -74,7 +74,7 @@ units.forEach(u=>{
 })
 
 setValues(updated)
-```
+
 
 }
 
