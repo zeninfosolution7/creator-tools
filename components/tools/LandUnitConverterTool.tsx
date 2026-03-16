@@ -22,6 +22,9 @@ const [stateKey, setStateKey] = useState<keyof typeof landStates>(initialState)
 
 const stateData = landStates[stateKey]
 
+const labels = stateData.labels ?? {}
+
+
 useEffect(()=>{
   setValues({})
 },[stateKey])
@@ -109,8 +112,8 @@ const stateRegionalUnits =
           <div key={unit.key} className="flex flex-col md:flex-row gap-2">
 
             <label className="md:w-48 text-sm text-slate-300">
-              {stateData.labels?.[unit.key] || unit.label}
-            </label>
+  {labels[unit.key] ?? unit.label}
+</label>
 
             <input
               type="text"
