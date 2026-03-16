@@ -5,135 +5,133 @@ import { useState, useEffect } from "react"
 import { landStates } from "@/lib/landStates"
 import { regionalUnits } from "@/lib/regionalUnits"
 
-import type { LandUnit } from "@/lib/landTypes"
-
 type Props = {
-  state?: string
+state?: string
 }
+
+type Values = Record<string,string>
 
 export default function LandUnitConverterTool({ state }: Props) {
 
-const initialState: keyof typeof landStates =
-  state && state in landStates
-    ? (state as keyof typeof landStates)
-    : "english"
+const initialState =
+state && state in landStates ? state : "english"
 
-const [stateKey, setStateKey] = useState<keyof typeof landStates>(initialState)
+const [stateKey,setStateKey] = useState(initialState)
 
-const stateData = landStates[stateKey]
+const stateData = landStates[stateKey] || landStates["english"]
 
 const labels = stateData.labels ?? {}
 
+const [values,setValues] = useState<Values>({})
 
 useEffect(()=>{
-  setValues({})
+setValues({})
 },[stateKey])
 
-  const baseUnits = [
-  { key: "acre", label: "Acre", factor: 4046.856422 },
-  { key: "hectare", label: "Hectare", factor: 10000 },
-  { key: "sqm", label: "Square Meter", factor: 1 },
-  { key: "sqft", label: "Square Foot", factor: 0.09290304 },
-  { key: "sqyd", label: "Square Yard", factor: 0.83612736 },
-  { key: "guntha", label: "Guntha", factor: 101.17141 },
-  { key: "katha", label: "Katha", factor: 126.441 },
-  { key: "marla", label: "Marla", factor: 25.29285 },
-  { key: "kanal", label: "Kanal", factor: 505.85705 },
-  { key: "cent", label: "Cent", factor: 40.468564 },
-  { key: "bigha", label: "Bigha", factor: stateData.bigha },
+const baseUnits = [
+{ key:"acre",label:"Acre",factor:4046.856422 },
+{ key:"hectare",label:"Hectare",factor:10000 },
+{ key:"sqm",label:"Square Meter",factor:1 },
+{ key:"sqft",label:"Square Foot",factor:0.09290304 },
+{ key:"sqyd",label:"Square Yard",factor:0.83612736 },
+{ key:"guntha",label:"Guntha",factor:101.17141 },
+{ key:"katha",label:"Katha",factor:126.441 },
+{ key:"marla",label:"Marla",factor:25.29285 },
+{ key:"kanal",label:"Kanal",factor:505.85705 },
+{ key:"cent",label:"Cent",factor:40.468564 },
+{ key:"bigha",label:"Bigha",factor:stateData.bigha }
 ]
 
 const stateRegionalUnits =
-  regionalUnits[stateKey as keyof typeof regionalUnits] || []
+regionalUnits[stateKey as keyof typeof regionalUnits] ?? []
 
+const units = [...baseUnits,...stateRegionalUnits]
 
+function handleChange(key:string,val:string){
+setValues(prev=>({
+...prev,
+[key]:val
+}))
+}
 
-  const units = [
-    ...baseUnits,
-    ...(regionalUnits[stateKey] || []),
-  ]
+function convert(unitKey:string){
 
-  const [values, setValues] = useState<Record<string, string>>({})
+```
+const value = parseFloat(values[unitKey])
 
-  function handleChange(unitKey: string, value: string) {
-    setValues((prev) => ({ ...prev, [unitKey]: value }))
-  }
+if(isNaN(value)) return
 
-  function convert(unitKey: string) {
+const unit = units.find(u=>u.key===unitKey)
 
-  const value = parseFloat(values[unitKey])
+if(!unit) return
 
-  if (isNaN(value)) return
+const sqm = value * unit.factor
 
-  const unit = units.find(u => u.key === unitKey)
+const updated:Values = {}
 
-  if (!unit) return
+units.forEach(u=>{
+  updated[u.key] = (sqm / u.factor).toFixed(6)
+})
 
-  const sqm = value * unit.factor
-
-  const updated: Record<string,string> = {}
-
-  units.forEach(u=>{
-    updated[u.key] = (sqm / u.factor).toFixed(6)
-  })
-
-  setValues(updated)
+setValues(updated)
+```
 
 }
 
-  return (
-    <div className="space-y-6">
+return (
 
-      {/* STATE SELECTOR */}
+```
+<div className="space-y-6">
 
-      <div>
-        <select
-          value={stateKey}
-          onChange={(e) =>
-  setStateKey(e.target.value as keyof typeof landStates)
-}
+  {/* STATE SELECT */}
 
-          className="px-3 py-2 rounded bg-white text-black"
-        >
-		{Object.entries(landStates).map(([key, s]) => (
-            <option key={key} value={key}>
-              {s.name}
-            </option>
-          ))}
-        </select>
-      </div>
+  <div>
+    <select
+      value={stateKey}
+      onChange={(e)=>setStateKey(e.target.value)}
+      className="px-3 py-2 rounded bg-white text-black"
+    >
 
-      {/* CONVERTER */}
+    {Object.entries(landStates).map(([key,s])=>(
+      <option key={key} value={key}>
+        {s.name}
+      </option>
+    ))}
 
-      <div className="max-w-3xl mx-auto space-y-4">
+    </select>
+  </div>
 
-        {units.map((unit) => (
+  {/* CONVERTER */}
 
-          <div key={unit.key} className="flex flex-col md:flex-row gap-2">
+  <div className="max-w-3xl mx-auto space-y-4">
 
-            <label className="md:w-48 text-sm text-slate-300">
-  {labels[unit.key] ?? unit.label}
-</label>
+    {units.map(unit=>(
+      <div key={unit.key} className="flex flex-col md:flex-row gap-2">
 
-            <input
-              type="text"
-              value={values[unit.key] || ""}
-              onChange={(e) =>
-                handleChange(unit.key, e.target.value)
-              }
-              onBlur={() => convert(unit.key)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") convert(unit.key)
-              }}
-              className="flex-1 px-4 py-2 rounded bg-white text-black"
-              placeholder="Enter value"
-            />
+        <label className="md:w-48 text-sm text-slate-300">
+          {labels[unit.key] ?? unit.label}
+        </label>
 
-          </div>
-
-        ))}
+        <input
+          type="text"
+          value={values[unit.key] ?? ""}
+          onChange={(e)=>handleChange(unit.key,e.target.value)}
+          onBlur={()=>convert(unit.key)}
+          onKeyDown={(e)=>{
+            if(e.key==="Enter") convert(unit.key)
+          }}
+          className="flex-1 px-4 py-2 rounded bg-white text-black"
+          placeholder="Enter value"
+        />
 
       </div>
-    </div>
-  )
+    ))}
+
+  </div>
+
+</div>
+```
+
+)
+
 }
