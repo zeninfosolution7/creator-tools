@@ -10,7 +10,6 @@ import DiscountCalculatorTool from "@/components/tools/DiscountCalculatorTool"
 import EMICalculatorTool from "@/components/tools/EMICalculatorTool"
 import RandomNumberGeneratorTool from "@/components/tools/RandomNumberGeneratorTool"
 import TipCalculatorTool from "@/components/tools/TipCalculatorTool"
-import LengthConverterTool from "@/components/tools/LengthConverterTool"
 import DateDifferenceTool from "@/components/tools/DateDifferenceTool"
 import ScientificCalculatorTool from "@/components/tools/ScientificCalculatorTool"
 import AiTextSummarizerTool from "@/components/tools/AiTextSummarizerTool"
@@ -23,8 +22,7 @@ import AiBlogIdeaGeneratorTool from "@/components/tools/AiBlogIdeaGeneratorTool"
 import AiUsernameGeneratorTool from "@/components/tools/AiUsernameGeneratorTool"
 import AiMetaDescriptionGeneratorTool from "@/components/tools/AiMetaDescriptionGeneratorTool"
 import AiCaptionGeneratorTool from "@/components/tools/AiCaptionGeneratorTool"
-import LandUnitConverterTool from "@/components/tools/LandUnitConverterTool"
-import PlotAreaCalculatorTool from "@/components/tools/PlotAreaCalculatorTool"
+import TankCalculatorTool from "@/components/tools/TankCalculatorTool"
 
 export const toolComponents = {
   YoutubeThumbnailTool,
@@ -39,7 +37,6 @@ DiscountCalculatorTool,
 EMICalculatorTool,
 RandomNumberGeneratorTool,
 TipCalculatorTool,
-LengthConverterTool,
 DateDifferenceTool,
 ScientificCalculatorTool,
 AiTextSummarizerTool,
@@ -52,6 +49,6 @@ AiTextSummarizerTool,
   AiUsernameGeneratorTool,
   AiMetaDescriptionGeneratorTool,
   AiCaptionGeneratorTool,
-  LandUnitConverterTool,
-  PlotAreaCalculatorTool
+  TankCalculatorTool,
+
 }

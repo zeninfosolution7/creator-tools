@@ -1,43 +1,187 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export default function PasswordGeneratorTool() {
 
-const [password, setPassword] = useState("")
+  const [length, setLength] = useState(12)
 
-function generatePassword() {
+  const [options, setOptions] = useState({
+    uppercase: true,
+    lowercase: true,
+    numbers: true,
+    safeSymbols: true,
+    basicSymbols: true,
+    advancedSymbols: false,
+    avoidSimilar: false,
+  })
 
-const chars =
-"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*"
+  const [password, setPassword] = useState("")
+  const [strength, setStrength] = useState("")
+  const [copied, setCopied] = useState(false)
 
-let result = ""
+  const charSets = {
+    uppercase: "ABCDEFGHJKLMNPQRSTUVWXYZ",
+    lowercase: "abcdefghijkmnopqrstuvwxyz",
+    numbers: "23456789",
+    safeSymbols: "_?.,",
+    basicSymbols: "!@#$%^&*",
+    advancedSymbols: "(){}[]<>?/\\|~`+=;:\"',"
+  }
 
-for (let i = 0; i < 12; i++) {
-result += chars[Math.floor(Math.random() * chars.length)]
-}
+  function generatePassword() {
 
-setPassword(result)
-}
+    let chars = ""
 
-return (
+    if (options.uppercase)
+      chars += options.avoidSimilar ? charSets.uppercase : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-<div className="space-y-4">
+    if (options.lowercase)
+      chars += options.avoidSimilar ? charSets.lowercase : "abcdefghijklmnopqrstuvwxyz"
 
-<button
-onClick={generatePassword}
-className="bg-blue-500 px-4 py-2 rounded"
->
-Generate Password
-</button>
+    if (options.numbers)
+      chars += options.avoidSimilar ? charSets.numbers : "0123456789"
 
-{password && (
-<div className="bg-slate-700 p-3 rounded">
-{password}
-</div>
-)}
+    if (options.safeSymbols)
+      chars += charSets.safeSymbols
 
-</div>
+    if (options.basicSymbols)
+      chars += charSets.basicSymbols
 
-)
+    if (options.advancedSymbols)
+      chars += charSets.advancedSymbols
+
+    if (!chars) return
+
+    let result = ""
+
+    for (let i = 0; i < length; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length))
+    }
+
+    setPassword(result)
+    calculateStrength(result)
+  }
+
+  function calculateStrength(pw: string) {
+    let score = 0
+
+    if (pw.length >= 8) score++
+    if (/[A-Z]/.test(pw)) score++
+    if (/[a-z]/.test(pw)) score++
+    if (/[0-9]/.test(pw)) score++
+    if (/[^A-Za-z0-9]/.test(pw)) score++
+
+    if (score <= 2) setStrength("Weak")
+    else if (score <= 4) setStrength("Medium")
+    else setStrength("Strong")
+  }
+
+  function toggleOption(key: keyof typeof options) {
+    setOptions(prev => ({ ...prev, [key]: !prev[key] }))
+  }
+
+  // Auto-generate password
+  useEffect(() => {
+    generatePassword()
+  }, [length, options])
+
+  return (
+    <div className="max-w-xl mx-auto space-y-6">
+
+      <h2 className="text-xl font-semibold text-white text-center">
+        Password Generator
+      </h2>
+
+      {/* OUTPUT */}
+      <div className="bg-slate-800 p-4 rounded space-y-2">
+
+        <div className="flex justify-between items-center">
+          <span className="text-white break-all">
+            {password}
+          </span>
+
+          <button
+            onClick={() => {
+              if (!password) return
+              navigator.clipboard.writeText(password)
+              setCopied(true)
+              setTimeout(() => setCopied(false), 1500)
+            }}
+            className="text-blue-400 text-sm transition"
+          >
+            {copied ? "Copied!" : "Copy"}
+          </button>
+        </div>
+
+        {/* Strength */}
+        <div className="text-sm">
+          Strength:{" "}
+          <span className={
+            strength === "Weak" ? "text-red-400" :
+            strength === "Medium" ? "text-yellow-400" :
+            "text-green-400"
+          }>
+            {strength}
+          </span>
+        </div>
+
+      </div>
+
+      {/* TOAST */}
+      {copied && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-green-600 text-white px-4 py-2 rounded shadow-lg">
+          Password Copied!
+        </div>
+      )}
+
+      {/* LENGTH */}
+      <div className="space-y-2">
+        <label className="text-slate-300 text-sm">
+          Length: {length}
+        </label>
+
+        <input
+          type="range"
+          min="4"
+          max="50"
+          value={length}
+          onChange={(e) => setLength(Number(e.target.value))}
+          className="w-full accent-blue-500"
+        />
+      </div>
+
+      {/* OPTIONS */}
+      <div className="grid grid-cols-2 gap-3 text-sm">
+
+        {[
+          { key: "uppercase", label: "A-Z (Uppercase)" },
+          { key: "lowercase", label: "a-z (Lowercase)" },
+          { key: "numbers", label: "0-9 (Numbers)" },
+          { key: "safeSymbols", label: "_ ? . , (Safe Symbols)" },
+          { key: "basicSymbols", label: "!@#$%^&* (Basic Symbols)" },
+          { key: "advancedSymbols", label: "(){}[] (Advanced Symbols)" },
+          { key: "avoidSimilar", label: "Avoid Similar (O,0,l,1)" }
+        ].map((opt) => (
+          <label
+            key={opt.key}
+            className="flex items-center justify-between bg-slate-800 px-3 py-2 rounded cursor-pointer"
+          >
+            <span className="text-slate-300">
+              {opt.label}
+            </span>
+
+            <input
+              type="checkbox"
+              checked={options[opt.key as keyof typeof options]}
+              onChange={() => toggleOption(opt.key as keyof typeof options)}
+              className="accent-blue-500"
+            />
+          </label>
+        ))}
+
+      </div>
+
+    </div>
+  )
 }

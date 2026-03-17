@@ -6,9 +6,11 @@ english:{
 name:"Default (English)",
 lang:"en",
 bigha:2508,
+placeholder:"Enter digits",
 labels:{
 acre:"Acre",
 hectare:"Hectare",
+sqkm:"Square Kilometer",
 sqm:"Square Meter",
 sqft:"Square Foot",
 sqyd:"Square Yard",
@@ -24,9 +26,11 @@ gujarat:{
 name:"Gujarat",
 lang:"gu",
 bigha:1618.7,
+placeholder:"આંકડા ઉમેરો",
 labels:{
 acre:"એકર",
 hectare:"હેક્ટર",
+sqkm:"ચોરસ કિલોમીટર",
 sqm:"ચોરસ મીટર",
 sqft:"ચોરસ ફૂટ",
 sqyd:"ચોરસ યાર્ડ",
@@ -42,9 +46,11 @@ bihar:{
 name:"Bihar",
 lang:"hi",
 bigha:2529,
+placeholder:"संख्या दर्ज करें",
 labels:{
 acre:"एकड़",
 hectare:"हेक्टेयर",
+sqkm:"वर्ग किलोमीटर",
 sqm:"वर्ग मीटर",
 sqft:"वर्ग फुट",
 sqyd:"वर्ग गज",
@@ -61,9 +67,11 @@ uttar_pradesh:{
 name:"Uttar Pradesh",
 lang:"hi",
 bigha:2508,
+placeholder:"संख्या दर्ज करें",
 labels:{
 acre:"एकड़",
 hectare:"हेक्टेयर",
+sqkm:"वर्ग किलोमीटर",
 sqm:"वर्ग मीटर",
 sqft:"वर्ग फुट",
 sqyd:"वर्ग गज",
@@ -72,39 +80,41 @@ katha:"कट्ठा",
 marla:"मरला",
 kanal:"कनाल",
 cent:"सेंट",
-bigha:"बीघा",
-biswa:"बिस्वा"
+bigha:"बीघा"
 }
 },
 punjab:{
 name:"Punjab",
 lang:"pa",
-bigha:1011,
+bigha:1011.7,
+placeholder:"ਅੰਕ ਦਰਜ ਕਰੋ",
 labels:{
 acre:"ਏਕੜ",
 hectare:"ਹੈਕਟੇਅਰ",
+sqkm:"ਵਰਗ ਕਿਲੋਮੀਟਰ",
 sqm:"ਵਰਗ ਮੀਟਰ",
 sqft:"ਵਰਗ ਫੁੱਟ",
 sqyd:"ਵਰਗ ਗਜ਼",
-guntha:"ਗੁੰਠਾ",
-katha:"ਕੱਠਾ",
 marla:"ਮਰਲਾ",
 kanal:"ਕਨਾਲ",
 cent:"ਸੈਂਟ",
-bigha:"ਬਿੱਘਾ"
+bigha:"ਬੀਘਾ"
 }
 },
 tamil_nadu:{
 name:"Tamil Nadu",
 lang:"ta",
 bigha:2529,
+placeholder:"எண்ணை உள்ளிடவும்",
 labels:{
 acre:"ஏக்கர்",
 hectare:"ஹெக்டேர்",
+sqkm:"சதுர கிலோமீட்டர்",
 sqm:"சதுர மீட்டர்",
 sqft:"சதுர அடி",
 sqyd:"சதுர யார்டு",
-ground:"கிரௌண்டு"   // ADD THIS
+cent:"சென்ட்",
+ground:"கிரவுண்ட்"
 }
 },
 maharashtra:{name:"Maharashtra",lang:"mr",bigha:2529},

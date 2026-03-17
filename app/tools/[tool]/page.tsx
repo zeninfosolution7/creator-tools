@@ -6,12 +6,6 @@ import Link from "next/link"
 import ToolLayout from "@/components/ToolLayout"
 import Breadcrumb from "@/components/Breadcrumb"
 
-import YoutubeThumbnailTool from "@/components/tools/YoutubeThumbnailTool"
-import PasswordGeneratorTool from "@/components/tools/PasswordGeneratorTool"
-import WordCounterTool from "@/components/tools/WordCounterTool"
-import JsonFormatterTool from "@/components/tools/JsonFormatterTool"
-import PdfUnlockTool from "@/components/tools/PdfUnlockTool"
-
 export async function generateMetadata({ params }: any) {
 
 const tool = getToolBySlug((await params).tool)
@@ -30,19 +24,21 @@ export default async function ToolPage({
   params: Promise<{ tool: string }>
 }) {
 
-  const { tool } = await params
+ const { tool } = await params
 
-  const toolData = getToolBySlug(tool)
+const toolData = getToolBySlug(tool)
 
-  if (!toolData) {
-    return notFound()
-  }
+if (!toolData) {
+  return notFound()
+}
 
-  const ToolComponent =
-  toolData.component
-    ? toolComponents[toolData.component as keyof typeof toolComponents]
-    : null
-
+const ToolComponent =
+  toolComponents[toolData.component as keyof typeof toolComponents]
+  
+console.log("tool slug:", tool)
+console.log("tool object:", toolData)
+console.log("component:", toolData.component)
+  
 return (
   <>
     {/* Breadcrumb */}

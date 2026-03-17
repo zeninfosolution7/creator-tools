@@ -1,5 +1,6 @@
-import { LucideIcon } from "lucide-react"
+
 import {
+  LucideIcon,
   Youtube,
   Hash,
   KeyRound,
@@ -29,6 +30,7 @@ PenLine,
 Lightbulb,
 User,
 AlignLeft,
+Droplet
 } from "lucide-react"
 
 export type ToolDefinition = {
@@ -104,14 +106,8 @@ title: "Timestamp Converter",
 description: "Convert Unix timestamps",
 icon: Clock,
 category: "developer"
-},/*
-{
-slug: "random-number-generator",
-title: "Random Number Generator",
-description: "Generate random numbers",
-icon: Dice6,
-category: "developer"
-} */
+},
+
 {
 slug: "color-converter",
 title: "Color Converter",
@@ -214,7 +210,7 @@ component: "TipCalculatorTool",
 category: "math",
 popular: false
 },
-
+/*
 {
 slug: "length-converter",
 title: "Length Converter",
@@ -224,7 +220,7 @@ component: "LengthConverterTool",
 category: "math",
 popular: false
 },
-
+*/
 {
 slug: "date-difference-calculator",
 title: "Date Difference Calculator",
@@ -344,26 +340,30 @@ component: "AiCaptionGeneratorTool",
 category: "artificial-intelligence",
 popular: true
 },
+
 {
-slug: "land-unit-converter-india",
-title: "Land Unit Converter (India)",
-description: "Convert land units like bigha, guntha, acre, hectare, square feet and more.",
-icon: Ruler,
-component: "LandUnitConverterTool",
-category: "math",
-popular: true
-},
-{
-  slug: "plot-area-calculator",
-  title: "Plot Area Calculator",
-  description: "Calculate land area using width and height and convert into land units.",
-  icon: Ruler,
-  component: "PlotAreaCalculatorTool",
+  slug: "tank-calculator",
+  title: "Tank Volume Calculator",
+  description:     "Calculate water tank capacity in liters, cubic meters and cubic feet. Supports cylindrical and rectangular tanks with filling time calculation.",
+  component: "TankCalculatorTool",
   category: "calculator",
-  popular: true
+
+  seoContent: {
+    intro: "This tank calculator helps you calculate water tank capacity...",
+    formula: "Volume = π × r² × h",
+    example: "If diameter is 2m and height is 3m, volume ≈ 9420 liters",
+    faqs: [
+      {
+        q: "How to calculate tank capacity?",
+        a: "Use volume formula and convert to liters."
+      },
+      {
+        q: "Can I use different units?",
+        a: "Yes, this tool supports multiple units."
+      }
+    ]
+  }
 }
-
-
 
 ]
 
