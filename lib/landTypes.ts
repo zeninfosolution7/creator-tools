@@ -10,6 +10,7 @@ export type LandState = {
   bigha: number
   labels?: Record<string, string>
   placeholder?: string
+ 
 }
 
 export type LandStates = Record<string, LandState>

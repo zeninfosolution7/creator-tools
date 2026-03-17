@@ -44,6 +44,16 @@ export type ToolDefinition = {
   component?: string
   category?: string
   keywords?: string[]
+  seoContent?: {
+    intro?: string
+    formula?: string
+    example?: string
+    faqs?: {
+      q: string
+      a: string
+    }[]
+  }
+}
 }
 
 export const tools: ToolDefinition[] = [
