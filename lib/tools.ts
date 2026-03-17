@@ -54,7 +54,6 @@ export type ToolDefinition = {
     }[]
   }
 }
-}
 
 export const tools: ToolDefinition[] = [
 {
