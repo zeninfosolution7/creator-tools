@@ -342,6 +342,46 @@ popular: true
 },
 
 {
+slug:"length-converter",
+title:"Length Converter",
+description:"Convert between inch, feet, meter, yard, kilometer and more.",
+icon:Ruler,
+component:"LengthConverterTool",
+category:"converter",
+popular:true
+},
+
+{
+slug: "land-unit-converter-india",
+title: "Land Unit Converter (India)",
+description: "Convert land units like bigha, guntha, acre, hectare, square feet and more.",
+icon: Ruler,
+component: "LandUnitConverterTool",
+category: "converter",
+popular: true
+},
+
+{
+  slug: "plot-area-calculator",
+  title: "Plot Area Calculator",
+  description: "Calculate land area using width and height and convert into land units.",
+  icon: Ruler,
+  component: "PlotAreaCalculatorTool",
+  category: "calculator",
+  popular: true
+},
+
+{
+slug:"water-tank-calculator",
+title:"Water Tank Calculator",
+description:"Calculate how much water fits in a round tank.",
+icon:Droplet,
+component:"WaterTankCalculatorTool",
+category:"calculator",
+popular:true
+},
+
+{
   slug: "tank-calculator",
   title: "Tank Volume Calculator",
   description:     "Calculate water tank capacity in liters, cubic meters and cubic feet. Supports cylindrical and rectangular tanks with filling time calculation.",

@@ -22,6 +22,10 @@ import AiBlogIdeaGeneratorTool from "@/components/tools/AiBlogIdeaGeneratorTool"
 import AiUsernameGeneratorTool from "@/components/tools/AiUsernameGeneratorTool"
 import AiMetaDescriptionGeneratorTool from "@/components/tools/AiMetaDescriptionGeneratorTool"
 import AiCaptionGeneratorTool from "@/components/tools/AiCaptionGeneratorTool"
+import LengthConverterTool from "@/components/tools/LengthConverterTool"
+import LandUnitConverterTool from "@/components/tools/LandUnitConverterTool"
+import PlotAreaCalculatorTool from "@/components/tools/PlotAreaCalculatorTool"
+import WaterTankCalculatorTool from "@/components/tools/WaterTankCalculatorTool"
 import TankCalculatorTool from "@/components/tools/TankCalculatorTool"
 
 export const toolComponents = {
@@ -49,6 +53,10 @@ AiTextSummarizerTool,
   AiUsernameGeneratorTool,
   AiMetaDescriptionGeneratorTool,
   AiCaptionGeneratorTool,
-  TankCalculatorTool,
+  LengthConverterTool,
+  LandUnitConverterTool,
+  PlotAreaCalculatorTool,
+  WaterTankCalculatorTool,
+  TankCalculatorTool
 
 }
