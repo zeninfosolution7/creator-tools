@@ -4,6 +4,7 @@ import "./globals.css"
 
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
+import Script from "next/script"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,6 +20,10 @@ export const metadata: Metadata = {
   title: "CreatorTools – Free Online Tools for Creators, PDFs, Images & AI",
   description:
     "CreatorTools provides free online tools for creators, PDF utilities, image editing tools, AI tools and developer utilities in one place.",
+	
+  verification: {
+    "google-adsense-account": "ca-pub-7275210805094277",
+  }
 }
 
 export default function RootLayout({
@@ -27,11 +32,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
 
       <body
         className={`${geistSans.variable} ${geistMono.variable} flex flex-col min-h-screen bg-slate-900 text-white`}
       >
+	  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7275210805094277"
+     crossorigin="anonymous"></script>
 
         <Header />
 
