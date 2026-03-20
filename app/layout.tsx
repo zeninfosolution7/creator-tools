@@ -22,8 +22,12 @@ export const metadata: Metadata = {
     "CreatorTools provides free online tools for creators, PDF utilities, image editing tools, AI tools and developer utilities in one place.",
 	
   verification: {
+    google: "YOUR_GOOGLE_SITE_VERIFICATION_CODE",
+  },
+
+  other: {
     "google-adsense-account": "ca-pub-7275210805094277",
-  }
+  },
 }
 
 export default function RootLayout({
