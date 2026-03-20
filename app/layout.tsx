@@ -42,7 +42,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} flex flex-col min-h-screen bg-slate-900 text-white`}
       >
 	  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7275210805094277"
-     crossorigin="anonymous"></script>
+     crossOrigin="anonymous"></script>
 
         <Header />
 
