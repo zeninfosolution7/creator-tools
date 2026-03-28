@@ -4,7 +4,7 @@ import Link from "next/link"
 
 export default function ToolsPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white px-6 py-20">
+    <main className="min-h-screen bg-gray-50 dark:bg-gray-950 text-black dark:text-white px-6 py-20">
 
       <div className="max-w-6xl mx-auto">
 

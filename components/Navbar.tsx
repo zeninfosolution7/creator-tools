@@ -8,7 +8,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="bg-slate-900 border-b border-slate-800">
+    <header className="bg-white dark:bg-slate-900 border-b border-slate-800">
       <div className="max-w-7xl mx-auto px-4">
 
         <div className="flex items-center justify-between h-16">
@@ -45,7 +45,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {open && (
-        <div className="md:hidden bg-slate-900 border-t border-slate-800">
+        <div className="md:hidden bg-white dark:bg-slate-900 border-t border-slate-800">
           <div className="flex flex-col p-4 space-y-3 text-slate-200">
 
             <Link href="/" onClick={() => setOpen(false)}>

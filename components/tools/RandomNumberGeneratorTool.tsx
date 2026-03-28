@@ -29,7 +29,7 @@ export default function RandomNumberGeneratorTool() {
         placeholder="Minimum"
         value={min}
         onChange={(e) => setMin(e.target.value)}
-        className="w-full p-3 bg-slate-700 rounded"
+        className="w-full p-3 input rounded"
       />
 
       <input
@@ -37,7 +37,7 @@ export default function RandomNumberGeneratorTool() {
         placeholder="Maximum"
         value={max}
         onChange={(e) => setMax(e.target.value)}
-        className="w-full p-3 bg-slate-700 rounded"
+        className="w-full p-3 input rounded"
       />
 
       <button
@@ -48,7 +48,7 @@ export default function RandomNumberGeneratorTool() {
       </button>
 
       {result && (
-        <div className="bg-slate-800 p-4 rounded">
+        <div className="bg-white dark:bg-gray-900 p-4 rounded">
           Random Number: {result}
         </div>
       )}

@@ -28,14 +28,14 @@ export default function DateDifferenceTool() {
         type="date"
         value={d1}
         onChange={(e) => setD1(e.target.value)}
-        className="w-full p-3 bg-slate-700 rounded"
+        className="w-full p-3 input rounded"
       />
 
       <input
         type="date"
         value={d2}
         onChange={(e) => setD2(e.target.value)}
-        className="w-full p-3 bg-slate-700 rounded"
+        className="w-full p-3 input rounded"
       />
 
       <button
@@ -46,7 +46,7 @@ export default function DateDifferenceTool() {
       </button>
 
       {result && (
-        <div className="bg-slate-800 p-4 rounded">
+        <div className="bg-white dark:bg-gray-900 p-4 rounded">
           Difference: {result} days
         </div>
       )}

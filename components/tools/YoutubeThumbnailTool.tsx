@@ -44,7 +44,7 @@ export default function YoutubeThumbnailTool() {
         placeholder="Paste YouTube URL"
         value={url}
         onChange={(e) => setUrl(e.target.value)}
-        className="w-full p-3 rounded bg-slate-700 text-white"
+        className="w-full p-3 rounded input text-black dark:text-white"
       />
 
       <button

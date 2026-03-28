@@ -8,19 +8,22 @@ export default function ToolLayout({
   children: React.ReactNode
 }) {
   return (
-    <main className="min-h-screen bg-slate-900 text-white px-6 pt-12 pb-20">
+    <main className="min-h-screen bg-gray-50 dark:bg-gray-950 text-black dark:text-white px-6 pt-12 pb-20">
 
       <div className="max-w-4xl mx-auto text-center">
 
-        <h1 className="text-4xl font-bold mb-4">
+        {/* TITLE */}
+        <h1 className="text-3xl md:text-4xl font-bold mb-4">
           {title}
         </h1>
 
-        <p className="text-gray-400 mb-10">
+        {/* DESCRIPTION */}
+        <p className="text-gray-500 dark:text-gray-400 mb-10 max-w-2xl mx-auto">
           {description}
         </p>
 
-        <div className="bg-slate-800/60 backdrop-blur-lg border border-slate-700 p-8 rounded-2xl shadow-xl">
+        {/* TOOL CARD */}
+        <div className="card card-padding shadow-sm">
           {children}
         </div>
 

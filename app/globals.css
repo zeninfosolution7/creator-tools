@@ -1,10 +1,19 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
+/* LIGHT THEME */
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
+/* DARK THEME (controlled by next-themes) */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
+/* Tailwind theme mapping */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -12,15 +21,40 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Base styles */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.card {
+  @apply bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl;
+}
+
+.card-padding {
+  @apply p-4 md:p-6;
+}
+
+input {
+  @apply w-full px-4 py-3 rounded-lg border bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-black dark:text-white;
+}
+
+.btn {
+  @apply px-4 py-3 rounded-lg font-medium transition;
+}
+
+.btn-primary {
+  @apply bg-blue-600 text-white hover:bg-blue-500;
+}
+
+select {
+  @apply w-full px-4 py-2 rounded-lg border 
+  bg-white dark:bg-gray-900 
+  border-gray-300 dark:border-gray-700 
+  text-black dark:text-white;
+}
+
+option {
+  @apply text-black;
 }

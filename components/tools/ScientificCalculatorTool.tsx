@@ -69,67 +69,79 @@ export default function ScientificCalculatorTool() {
   }
 
   return (
-    <div className="max-w-md mx-auto space-y-4">
-	
-	<div className="bg-white dark:bg-black text-black dark:text-white p-2 rounded">
-      Test Theme
+  <div className="max-w-md mx-auto space-y-5">
+
+    {/* TITLE */}
+    <h2 className="text-lg font-semibold text-black dark:text-white text-center">
+      Scientific Calculator
+    </h2>
+
+    {/* INPUT + ACTIONS */}
+    <div className="space-y-3">
+
+      <textarea
+        value={expression}
+        onChange={(e) => setExpression(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault()
+            calculate()
+          }
+        }}
+        placeholder="Enter expression (e.g. 2+3*5)"
+        className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-black dark:text-white outline-none resize-none focus:ring-2 focus:ring-blue-500"
+        rows={2}
+      />
+
+      <div className="flex gap-2">
+
+        <button
+          onClick={pasteFromClipboard}
+          className="flex-1 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 text-black dark:text-white text-sm hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+        >
+          Paste
+        </button>
+
+        <button
+          onClick={calculate}
+          className="flex-1 py-2 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-500 active:scale-95 transition"
+        >
+          Calculate
+        </button>
+
+      </div>
+
     </div>
 
-      {/* TITLE */}
-      <h2 className="text-base text-white text-center font-medium">
-        Scientific Calculator
-      </h2>
+    {/* RESULT */}
+    <div className="p-4 rounded-xl border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/30 text-center">
 
-      {/* INPUT FIELD (MAIN UPGRADE) */}
-      <div className="space-y-2">
-
-        <textarea
-          value={expression}
-          onChange={(e) => setExpression(e.target.value)}
-          placeholder="Enter or paste expression..."
-          className="w-full px-4 py-3 rounded bg-slate-800 text-white outline-none resize-none"
-          rows={2}
-        />
-
-        <div className="flex justify-between gap-2">
-
-          <button
-            onClick={pasteFromClipboard}
-            className="flex-1 bg-slate-700 py-2 rounded text-white text-sm hover:bg-slate-600"
-          >
-            Paste
-          </button>
-
-          <button
-            onClick={calculate}
-            className="flex-1 bg-blue-600 py-2 rounded text-white text-sm hover:bg-blue-500"
-          >
-            Calculate
-          </button>
-
-        </div>
-
+      <div className="text-sm text-gray-600 dark:text-gray-400">
+        Result
       </div>
 
-      {/* RESULT */}
-      <div className="bg-slate-800 p-4 rounded">
-        <div className="text-white text-lg font-semibold break-all">
-          {result || "Result will appear here"}
-        </div>
+      <div className="text-xl font-semibold text-black dark:text-white break-all mt-1">
+        {result || "—"}
       </div>
 
-      {/* BUTTON GRID */}
-      <div className="grid grid-cols-4 gap-2">
+    </div>
 
-        {[
-          "7","8","9","/",
-          "4","5","6","*",
-          "1","2","3","-",
-          "0",".","+","=",
-          "(",")","[","]",
-          "{","}","C","⌫"
-        ].map((btn) => (
+    {/* BUTTON GRID */}
+    <div className="grid grid-cols-4 gap-2">
 
+      {[
+        "7","8","9","/",
+        "4","5","6","*",
+        "1","2","3","-",
+        "0",".","+","=",
+        "(",")","[","]",
+        "{","}","C","⌫"
+      ].map((btn) => {
+
+        const isOperator = ["/","*","-","+","="].includes(btn)
+        const isAction = ["C","⌫"].includes(btn)
+
+        return (
           <button
             key={btn}
             onClick={() => {
@@ -138,15 +150,24 @@ export default function ScientificCalculatorTool() {
               if (btn === "⌫") return backspace()
               setExpression((prev) => prev + btn)
             }}
-            className="bg-slate-700 text-white py-3 rounded hover:bg-slate-600 active:scale-95 transition"
+            className={`
+              py-3 rounded-xl text-sm font-medium transition active:scale-95
+              
+              ${isOperator
+                ? "bg-blue-600 text-white hover:bg-blue-500"
+                : isAction
+                ? "bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/60"
+                : "bg-gray-100 dark:bg-gray-800 text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+              }
+            `}
           >
             {btn}
           </button>
-
-        ))}
-
-      </div>
+        )
+      })}
 
     </div>
-  )
+
+  </div>
+)
 }

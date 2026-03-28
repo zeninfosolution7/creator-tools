@@ -27,6 +27,22 @@ import LandUnitConverterTool from "@/components/tools/LandUnitConverterTool"
 import PlotAreaCalculatorTool from "@/components/tools/PlotAreaCalculatorTool"
 import WaterTankCalculatorTool from "@/components/tools/WaterTankCalculatorTool"
 import TankCalculatorTool from "@/components/tools/TankCalculatorTool"
+import UnitPriceCalculatorTool from "@/components/tools/UnitPriceCalculatorTool"
+import TextCaseConverterTool from "@/components/tools/TextCaseConverterTool"
+import YoutubeTitleGeneratorTool from "@/components/tools/YoutubeTitleGeneratorTool"
+import YoutubeTagExtractorTool from "@/components/tools/YoutubeTagExtractorTool"
+import YoutubeTimestampTool from "@/components/tools/YoutubeTimestampTool"
+import YoutubeAspectRatioCalculatorTool from "@/components/tools/YoutubeAspectRatioCalculatorTool"
+import YoutubeSeoCheckerTool from "@/components/tools/YoutubeSeoCheckerTool"
+import YoutubeHashtagGeneratorTool from "@/components/tools/YoutubeHashtagGeneratorTool"
+import ImageResolutionCalculatorTool from "@/components/tools/ImageResolutionCalculatorTool"
+import YoutubeTitleFormatterTool from "@/components/tools/YoutubeTitleFormatterTool"
+import YoutubeTagLimitCheckerTool from "@/components/tools/YoutubeTagLimitCheckerTool"
+import YoutubeEarningsCalculatorTool from "@/components/tools/YoutubeEarningsCalculatorTool"
+import YoutubeTitleLengthCheckerTool from "@/components/tools/YoutubeTitleLengthCheckerTool"
+import YoutubeDescriptionFormatterTool from "@/components/tools/YoutubeDescriptionFormatterTool"
+
+
 
 export const toolComponents = {
   YoutubeThumbnailTool,
@@ -57,6 +73,19 @@ AiTextSummarizerTool,
   LandUnitConverterTool,
   PlotAreaCalculatorTool,
   WaterTankCalculatorTool,
-  TankCalculatorTool
-
+  TankCalculatorTool,
+  UnitPriceCalculatorTool,
+  TextCaseConverterTool,
+  YoutubeTitleGeneratorTool,
+YoutubeTagExtractorTool,
+YoutubeTimestampTool,
+YoutubeAspectRatioCalculatorTool,
+YoutubeSeoCheckerTool,
+YoutubeHashtagGeneratorTool,
+ImageResolutionCalculatorTool,
+YoutubeTitleFormatterTool,
+YoutubeTagLimitCheckerTool,
+YoutubeEarningsCalculatorTool,
+YoutubeTitleLengthCheckerTool,
+YoutubeDescriptionFormatterTool,
 }

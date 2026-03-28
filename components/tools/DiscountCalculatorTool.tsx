@@ -28,7 +28,7 @@ export default function DiscountCalculatorTool() {
         placeholder="Original Price"
         value={price}
         onChange={(e) => setPrice(e.target.value)}
-        className="w-full p-3 bg-slate-700 rounded"
+        className="w-full p-3 input rounded"
       />
 
       <input
@@ -36,7 +36,7 @@ export default function DiscountCalculatorTool() {
         placeholder="Discount %"
         value={discount}
         onChange={(e) => setDiscount(e.target.value)}
-        className="w-full p-3 bg-slate-700 rounded"
+        className="w-full p-3 input rounded"
       />
 
       <button
@@ -47,7 +47,7 @@ export default function DiscountCalculatorTool() {
       </button>
 
       {finalPrice && (
-        <div className="bg-slate-800 p-4 rounded">
+        <div className="bg-white dark:bg-gray-900 p-4 rounded">
           Final Price: {finalPrice}
         </div>
       )}

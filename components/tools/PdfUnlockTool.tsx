@@ -59,12 +59,12 @@ export default function PdfUnlockTool() {
         type="file"
         accept="application/pdf"
         onChange={(e) => setFile(e.target.files?.[0] || null)}
-        className="w-full p-3 rounded bg-slate-700 text-white"
+        className="w-full p-3 rounded input text-black dark:text-white"
       />
 
       <button
         onClick={unlockPdf}
-        className="bg-blue-600 hover:bg-blue-500 px-6 py-3 rounded text-white"
+        className="bg-blue-600 hover:bg-blue-500 px-6 py-3 rounded text-black dark:text-white"
       >
         Unlock PDF
       </button>
@@ -79,7 +79,7 @@ export default function PdfUnlockTool() {
 
       <div className="mt-10 text-gray-300 space-y-4">
 
-        <h2 className="text-xl font-semibold text-white">
+        <h2 className="text-xl font-semibold text-black dark:text-white">
           Unlock PDF Online
         </h2>
 

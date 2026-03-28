@@ -30,7 +30,10 @@ PenLine,
 Lightbulb,
 User,
 AlignLeft,
-Droplet
+Droplet,
+Book,
+DollarSign,
+
 } from "lucide-react"
 
 export type ToolDefinition = {
@@ -410,9 +413,135 @@ popular:true
         q: "Can I use different units?",
         a: "Yes, this tool supports multiple units."
       }
+  	  ]
+  }
+  },
+  {
+  slug: "Unit-Price-calculator",
+  title: "Unit Price Calculator",
+  description:     "Calculate Price Quantity and Units",
+  component: "UnitPriceCalculatorTool",
+  category: "calculator",
+
+  seoContent: {
+    intro: "This tank calculator helps you calculate Price Quantity and Units...",
+    formula: "Volume = π × r² × h",
+    example: "If diameter is 2m and height is 3m, volume ≈ 9420 liters",
+    faqs: [
+      {
+        q: "How to calculate tank capacity?",
+        a: "Use volume formula and convert to liters."
+      },
+      {
+        q: "Can I use different units?",
+        a: "Yes, this tool supports multiple units."
+      }
     ]
   }
-}
+  
+},
+{
+  slug: "text-case-converter",
+  title: "Text Case Converter",
+  description: "Convert text to uppercase, lowercase, title case, and sentence case instantly.",
+  icon:Book,
+  component: "TextCaseConverterTool",
+  category: "seo-tools",
+},
+{
+  slug: "youtube-title-generator",
+  title: "YouTube Title Generator",
+  description: "Generate viral YouTube titles instantly using your topic.",
+  component: "YoutubeTitleGeneratorTool",
+  category: "creator",
+},
+{
+  slug: "youtube-tag-extractor",
+  title: "YouTube Tag Extractor",
+  description: "Extract tags from any YouTube video instantly.",
+  icon: Youtube,
+  component: "YoutubeTagExtractorTool",
+  category: "creator",
+},
+{
+  slug: "youtube-timestamp-generator",
+  title: "YouTube Timestamp Link Generator",
+  description: "Generate YouTube links that start at a specific time.",
+  icon: Youtube,
+  component: "YoutubeTimestampTool",
+  category: "creator",
+},
+{
+  slug: "youtube-aspect-ratio-calculator",
+  title: "Youtube Aspect Ratio Calculator",
+  description: "Calculate aspect ratios for YouTube, Instagram, and videos.",
+  icon: Youtube,
+  component: "YoutubeAspectRatioCalculatorTool",
+  category: "creator",
+},
+{
+  slug: "youtube-seo-checker",
+  title: "YouTube Title & Description Checker",
+  description: "Check YouTube title and description length with SEO suggestions.",
+  component: "YoutubeSeoCheckerTool",
+  category: "creator",
+},
+{
+  slug: "youtube-hashtag-generator",
+  title: "YouTube Hashtag Generator",
+  description: "Generate smart hashtags for YouTube and social media.",
+  component: "YoutubeHashtagGeneratorTool",
+  category: "creator",
+  icon: Youtube,
+},
+{
+  slug: "image-resolution-calculator",
+  title: "Image Resolution Calculator",
+  description: "Calculate pixels, megapixels, and aspect ratio of any image.",
+  component: "ImageResolutionCalculatorTool",
+  category: "creator",
+  icon: Image,
+},
+{
+  slug: "youtube-title-formatter",
+  title: "YouTube Title Case Formatter",
+  description: "Convert your YouTube titles into proper case formats instantly.",
+  component: "YoutubeTitleFormatterTool",
+  category: "creator",
+  icon: Type,
+},
+{
+  slug: "youtube-tag-limit-checker",
+  title: "YouTube Tag Limit Checker",
+  description: "Check YouTube tag count and character limit easily.",
+  component: "YoutubeTagLimitCheckerTool",
+  category: "creator",
+  icon: Tag,
+},
+{
+  slug: "youtube-earnings-calculator",
+  title: "YouTube Earnings Calculator",
+  description: "Estimate YouTube earnings based on views and CPM.",
+  component: "YoutubeEarningsCalculatorTool",
+  category: "creator",
+  icon: DollarSign,
+},
+{
+  slug: "youtube-title-length-checker",
+  title: "YouTube Title Length Checker",
+  description: "Check if your YouTube title length is optimal for maximum CTR.",
+  component: "YoutubeTitleLengthCheckerTool",
+  category: "creator",
+  icon: Ruler,
+},
+{
+  slug: "youtube-description-formatter",
+  title: "YouTube Description Formatter",
+  description: "Format your YouTube description into clean, structured layout.",
+  component: "YoutubeDescriptionFormatterTool",
+  category: "creator",
+  icon: FileText,
+},
 
 ]
 

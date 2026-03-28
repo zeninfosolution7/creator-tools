@@ -28,7 +28,7 @@ export default function AiKeywordGeneratorTool() {
         placeholder="Keyword"
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
-        className="w-full p-3 bg-slate-700 rounded"
+        className="w-full p-3 input rounded"
       />
 
       <button
@@ -39,7 +39,7 @@ export default function AiKeywordGeneratorTool() {
       </button>
 
       {results.map((r, i) => (
-        <div key={i} className="bg-slate-800 p-3 rounded">
+        <div key={i} className="bg-white dark:bg-gray-900 p-3 rounded">
           {r}
         </div>
       ))}

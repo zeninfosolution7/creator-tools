@@ -68,9 +68,9 @@ return(
 
 <div className="space-y-6">
 
-<h2 className="text-xl font-semibold text-white">
-Length / Distance Converter
-</h2>
+{/*  <h2 className="text-xl font-semibold text-black dark:text-white">
+  Length / Distance Converter
+  </h2> */}
 
 <div className="max-w-3xl mx-auto space-y-4">
 
@@ -78,7 +78,7 @@ Length / Distance Converter
 
 <div key={unit.key} className="flex flex-col md:flex-row gap-2">
 
-<label className="md:w-48 text-sm text-slate-300">
+<label className="md:w-48 text-base font-medium text-black dark:text-white flex items-center">
 {unit.label}
 </label>
 
@@ -87,7 +87,7 @@ type="text"
 value={values[unit.key] ?? ""}
 onChange={(e)=>handleChange(unit.key,e.target.value)}
 onBlur={()=>convert(unit.key,values[unit.key])}
-className="flex-1 px-4 py-2 rounded bg-slate-700 text-white"
+className="flex-1 px-4 py-2 rounded input text-black dark:text-white"
 placeholder="Enter value"
 />
 

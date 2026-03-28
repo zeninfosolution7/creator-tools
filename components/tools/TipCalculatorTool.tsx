@@ -28,7 +28,7 @@ export default function TipCalculatorTool() {
         placeholder="Bill Amount"
         value={bill}
         onChange={(e) => setBill(e.target.value)}
-        className="w-full p-3 bg-slate-700 rounded"
+        className="w-full p-3 input rounded"
       />
 
       <input
@@ -36,7 +36,7 @@ export default function TipCalculatorTool() {
         placeholder="Tip %"
         value={tip}
         onChange={(e) => setTip(e.target.value)}
-        className="w-full p-3 bg-slate-700 rounded"
+        className="w-full p-3 input rounded"
       />
 
       <button
@@ -47,7 +47,7 @@ export default function TipCalculatorTool() {
       </button>
 
       {result && (
-        <div className="bg-slate-800 p-4 rounded">
+        <div className="bg-white dark:bg-gray-900 p-4 rounded">
           Total: {result}
         </div>
       )}

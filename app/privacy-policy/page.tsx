@@ -1,7 +1,7 @@
 export default function PrivacyPolicy() {
   return (
-    <main className="min-h-screen bg-slate-900 text-white px-6 py-20">
-      <h1 className="text-3xl font-bold mb-6 text-white">
+    <main className="min-h-screen bg-gray-50 dark:bg-gray-950 text-black dark:text-white px-6 py-20">
+      <h1 className="text-3xl font-bold mb-6 text-black dark:text-white">
         Privacy Policy
       </h1>
 
@@ -10,7 +10,7 @@ export default function PrivacyPolicy() {
         your information.
       </p>
 
-      <h2 className="text-xl font-semibold mt-8 mb-2 text-white">
+      <h2 className="text-xl font-semibold mt-8 mb-2 text-black dark:text-white">
         Information We Collect
       </h2>
 
@@ -19,7 +19,7 @@ export default function PrivacyPolicy() {
         and usage statistics to improve our tools and services.
       </p>
 
-      <h2 className="text-xl font-semibold mt-8 mb-2 text-white">
+      <h2 className="text-xl font-semibold mt-8 mb-2 text-black dark:text-white">
         Cookies
       </h2>
 
@@ -28,7 +28,7 @@ export default function PrivacyPolicy() {
         traffic.
       </p>
 
-      <h2 className="text-xl font-semibold mt-8 mb-2 text-white">
+      <h2 className="text-xl font-semibold mt-8 mb-2 text-black dark:text-white">
         Third-Party Services
       </h2>
 
@@ -37,7 +37,7 @@ export default function PrivacyPolicy() {
         networks to improve the platform.
       </p>
 
-      <h2 className="text-xl font-semibold mt-8 mb-2 text-white">
+      <h2 className="text-xl font-semibold mt-8 mb-2 text-black dark:text-white">
         Contact
       </h2>
 

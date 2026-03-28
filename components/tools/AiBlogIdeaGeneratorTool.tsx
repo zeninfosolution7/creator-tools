@@ -28,7 +28,7 @@ export default function AiBlogIdeaGeneratorTool() {
         placeholder="Blog topic"
         value={topic}
         onChange={(e) => setTopic(e.target.value)}
-        className="w-full p-3 bg-slate-700 rounded"
+        className="w-full p-3 input rounded"
       />
 
       <button
@@ -39,7 +39,7 @@ export default function AiBlogIdeaGeneratorTool() {
       </button>
 
       {ideas.map((idea, i) => (
-        <div key={i} className="bg-slate-800 p-3 rounded">
+        <div key={i} className="bg-white dark:bg-gray-900 p-3 rounded">
           {idea}
         </div>
       ))}

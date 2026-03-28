@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Video, FileText, Image, Bot, Code, Calculator, Unlock } from "lucide-react";
+import { Video, FileText, Image, Bot, Code, Calculator } from "lucide-react";
 import CategoryCard from "../components/CategoryCard";
+import HomeCategoryCard from "@/components/HomeCategoryCard";
 import { tools } from "@/lib/tools";
-import HomeCategoryCard from "@/components/HomeCategoryCard"
 
 const categories = [
   {
@@ -15,7 +15,7 @@ const categories = [
     icon: Video,
     gradientFrom: "from-purple-500/80",
     gradientTo: "to-indigo-500/80",
-	href: "/categories/creator"
+    href: "/categories/creator",
   },
   {
     title: "PDF Tools",
@@ -23,7 +23,7 @@ const categories = [
     icon: FileText,
     gradientFrom: "from-red-500/80",
     gradientTo: "to-pink-500/80",
-	href: "/categories/pdf",
+    href: "/categories/pdf",
   },
   {
     title: "Image Tools",
@@ -31,7 +31,7 @@ const categories = [
     icon: Image,
     gradientFrom: "from-cyan-500/80",
     gradientTo: "to-blue-500/80",
-	href: "/categories/image",
+    href: "/categories/image",
   },
   {
     title: "AI Tools",
@@ -39,24 +39,24 @@ const categories = [
     icon: Bot,
     gradientFrom: "from-yellow-400/80",
     gradientTo: "to-orange-500/80",
-	href: "/categories/artificial-intelligence",
+    href: "/categories/artificial-intelligence",
   },
   {
     title: "Developer Tools",
     description: "Encode, decode, format and analyze code or data.",
     icon: Code,
     gradientFrom: "from-indigo-500",
-	gradientTo: "to-cyan-400",
-	href: "/categories/developer",
+    gradientTo: "to-cyan-400",
+    href: "/categories/developer",
   },
-   {
+  {
     title: "Math Tools",
     description: "Age calculator, percentage calculator and other useful math tools.",
     icon: Calculator,
     gradientFrom: "from-teal-500/80",
     gradientTo: "to-green-500/80",
-	href: "/categories/math",
-  }
+    href: "/categories/math",
+  },
 ];
 
 export default function Home() {
@@ -64,175 +64,166 @@ export default function Home() {
   const router = useRouter();
 
   function handleHeroSubmit(e: React.FormEvent) {
-  e.preventDefault()
+    e.preventDefault();
+    if (!heroUrl) return;
 
-  if (!heroUrl) return
-
-  router.push(
-    `/tools/youtube-thumbnail-downloader?url=${encodeURIComponent(heroUrl)}`
-  )
-};
+    router.push(
+      `/tools/youtube-thumbnail-downloader?url=${encodeURIComponent(heroUrl)}`
+    );
+  }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 text-white">
+    <main className="min-h-screen bg-gray-50 dark:bg-gray-950 text-black dark:text-white">
 
-      {/* HERO SECTION */}
-      <section className="max-w-6xl mx-auto px-6 py-14 text-center">
+      {/* 🔹 HERO */}
+      <section className="max-w-6xl mx-auto px-6 py-16 text-center">
 
-        <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6">
+        <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
           All-in-One Online Tools Platform
         </h1>
 
-        <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-12">
-          Creator tools, PDF utilities, image tools, AI tools and developer
-          tools — all in one place.
+        <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto mb-12">
+          Creator tools, PDF utilities, image tools, AI tools and developer tools — all in one place.
         </p>
 
-        {/* TOOL INPUT */}
-       {/* TOOL INPUT */}
-{/* TOOL INPUT */}
-		<form
-		  onSubmit={handleHeroSubmit}
-		  className="max-w-xl mx-auto mt-6"
-		>
+        <form onSubmit={handleHeroSubmit} className="max-w-xl mx-auto">
+          <div className="flex flex-col md:flex-row gap-3">
 
-		  <div className="flex flex-col md:flex-row gap-3">
+            <input
+              type="text"
+              placeholder="Paste YouTube video URL..."
+              value={heroUrl}
+              onChange={(e) => setHeroUrl(e.target.value)}
+              className="input"
+            />
 
-			<input
-			  type="text"
-			  placeholder="Paste YouTube video URL..."
-			  value={heroUrl}
-			  onChange={(e) => setHeroUrl(e.target.value)}
-			  className="w-full px-4 py-3 rounded-lg bg-white text-black outline-none placeholder-gray-500"
-			/>
+            <button type="submit" className="btn btn-primary">
+              Download Thumbnail
+            </button>
 
-			<button
-			  type="submit"
-			  className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-lg font-medium"
-			>
-			  Download Thumbnail
-			</button>
-
-		  </div>
-
-		</form>
-
+          </div>
+        </form>
 
       </section>
-	{/* TOOL CATEGORIES */}
-
-<section id="tools" className="max-w-6xl mx-auto px-6 py-16">
-
-  <h2 className="text-3xl font-bold text-center mb-12">
-    Tool Categories
-  </h2>
-
-  <div className="grid md:grid-cols-3 gap-6">
-
-    {categories.map((cat) => (
-
-      <HomeCategoryCard
-        key={cat.title}
-        title={cat.title}
-        description={cat.description}
-        icon={cat.icon}
-        colorFrom={cat.gradientFrom}
-        colorTo={cat.gradientTo}
-		href={cat.href}
-      />
-
-    ))}
-
+	  
+	  {/* 🔥 Ad Slot */}
+<div className="my-8 flex justify-center">
+  <div className="w-full max-w-4xl h-[90px] bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
+    Ad Space (Leaderboard)
   </div>
-
-</section>
-{/* POPULAR TOOLS */}
-
-<section className="max-w-6xl mx-auto px-6 py-14">
-
-  <h2 className="text-3xl font-bold text-center mb-12">
-    Popular Tools
-  </h2>
-
-  <div className="grid md:grid-cols-3 gap-6">
-  {tools.slice(0,6).map((tool) => (
-  <Link key={tool.slug} href={`/tools/${tool.slug}`}>
-    <CategoryCard
-      title={tool.title}
-      description={tool.description}
-      gradientFrom={tool.gradientFrom}
-      gradientTo={tool.gradientTo}
-    />
-  </Link>
-))}
 </div>
 
-</section>
-{/* WHY CREATORTOOLS */}
+      {/* 🔹 TOOL CATEGORIES */}
+      <section className="bg-gray-100 dark:bg-gray-900 py-16">
+        <div className="max-w-6xl mx-auto px-6">
 
-<section className="max-w-6xl mx-auto px-6 py-14 text-center">
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Tool Categories
+          </h2>
 
-  <h2 className="text-3xl font-bold mb-12">
-    Why Choose CreatorTools
-  </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {categories.map((cat) => (
+              <HomeCategoryCard
+                key={cat.title}
+                title={cat.title}
+                description={cat.description}
+                icon={cat.icon}
+                colorFrom={cat.gradientFrom}
+                colorTo={cat.gradientTo}
+                href={cat.href}
+              />
+            ))}
+          </div>
 
-  <div className="grid md:grid-cols-3 gap-8">
-
-    <div className="bg-slate-800 p-8 rounded-xl">
-      <h3 className="text-xl font-semibold mb-3">
-        ⚡ Fast Tools
-      </h3>
-      <p className="text-gray-400 text-sm">
-        Our tools are optimized for speed so you can complete tasks instantly.
-      </p>
-    </div>
-
-    <div className="bg-slate-800 p-8 rounded-xl">
-      <h3 className="text-xl font-semibold mb-3">
-        🔒 Secure
-      </h3>
-      <p className="text-gray-400 text-sm">
-        Your files and data are processed securely and never stored permanently.
-      </p>
-    </div>
-
-    <div className="bg-slate-800 p-8 rounded-xl">
-      <h3 className="text-xl font-semibold mb-3">
-        🌍 Free to Use
-      </h3>
-      <p className="text-gray-400 text-sm">
-        All tools are free to use with no registration required.
-      </p>
-    </div>
-
+        </div>
+      </section>
+	  
+	  <div className="my-12 flex justify-center">
+  <div className="w-full max-w-3xl h-[250px] bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
+    Ad Space (Medium Rectangle)
   </div>
+</div>
 
-</section>
-{/* BROWSE ALL TOOLS */}
+      {/* 🔹 POPULAR TOOLS (FIXED BACKGROUND ONLY) */}
+      <section className="bg-white dark:bg-gray-800 py-16">
+        <div className="max-w-6xl mx-auto px-6">
 
-<section className="bg-slate-950 py-20 text-center">
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Popular Tools
+          </h2>
 
-  <div className="max-w-4xl mx-auto text-center px-6">
+          <div className="grid md:grid-cols-3 gap-6">
+            {tools.slice(0, 6).map((tool) => (
+              <Link key={tool.slug} href={`/tools/${tool.slug}`}>
+                <CategoryCard {...tool} />
+              </Link>
+            ))}
+          </div>
 
-    <h2 className="text-3xl font-bold mb-6">
-      Explore All Available Tools
-    </h2>
+        </div>
+      </section>
 
-    <p className="text-gray-400 mb-10">
-      Discover dozens of powerful utilities designed for creators,
-      developers and everyday productivity.
-    </p>
+      {/* 🔹 WHY SECTION */}
+      <section className="bg-gray-100 dark:bg-gray-900 py-16 text-center">
+        <div className="max-w-6xl mx-auto px-6">
 
-    <a
-      href="/tools"
-      className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-lg text-white font-semibold"
-    >
-      Browse All Tools
-    </a>
+          <h2 className="text-3xl font-bold mb-12">
+            Why Choose CreatorTools
+          </h2>
 
-  </div>
+          <div className="grid md:grid-cols-3 gap-8">
 
-</section>
+            <div className="card p-8">
+              <h3 className="text-xl font-semibold mb-3">⚡ Fast Tools</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                Our tools are optimized for speed so you can complete tasks instantly.
+              </p>
+            </div>
+
+            <div className="card p-8">
+              <h3 className="text-xl font-semibold mb-3">🔒 Secure</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                Your files and data are processed securely and never stored permanently.
+              </p>
+            </div>
+
+            <div className="card p-8">
+              <h3 className="text-xl font-semibold mb-3">🌍 Free to Use</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                All tools are free to use with no registration required.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* 🔹 CTA (FIXED BACKGROUND + GAP FIXED) */}
+      <section className="bg-white dark:bg-gray-800 pt-20 pb-10 text-center">
+
+        <div className="max-w-4xl mx-auto px-6">
+
+          <h2 className="text-3xl font-bold mb-6">
+            Explore All Available Tools
+          </h2>
+
+          <p className="text-gray-600 dark:text-gray-400 mb-10">
+            Discover dozens of powerful utilities designed for creators,
+            developers and everyday productivity.
+          </p>
+
+          <Link
+            href="/tools"
+            className="btn btn-primary px-8 py-4"
+          >
+            Browse All Tools
+          </Link>
+
+        </div>
+
+      </section>
+
     </main>
   );
 }

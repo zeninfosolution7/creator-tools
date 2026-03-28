@@ -31,7 +31,7 @@ export default function AiHashtagGeneratorTool() {
         placeholder="Enter keyword"
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
-        className="w-full p-3 bg-slate-700 rounded"
+        className="w-full p-3 input rounded"
       />
 
       <button
@@ -43,7 +43,7 @@ export default function AiHashtagGeneratorTool() {
 
       <div className="flex flex-wrap gap-2">
         {tags.map((tag, i) => (
-          <span key={i} className="bg-slate-800 px-3 py-1 rounded">
+          <span key={i} className="bg-white dark:bg-gray-900 px-3 py-1 rounded">
             {tag}
           </span>
         ))}

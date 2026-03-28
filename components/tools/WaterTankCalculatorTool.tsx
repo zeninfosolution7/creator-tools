@@ -75,7 +75,7 @@ return(
 
 <div className="space-y-6">
 
-<h2 className="text-xl font-semibold text-white">
+<h2 className="text-xl font-semibold text-black dark:text-white">
 Water Tank Calculator (Advanced)
 </h2>
 
@@ -90,13 +90,13 @@ type="number"
 placeholder="Diameter"
 value={diameter}
 onChange={(e)=>setDiameter(e.target.value)}
-className="flex-1 px-4 py-2 rounded bg-slate-700 text-white"
+className="flex-1 px-4 py-2 rounded input text-black dark:text-white"
 />
 
 <select
 value={diameterUnit}
 onChange={(e)=>setDiameterUnit(e.target.value)}
-className="px-3 py-2 rounded bg-slate-700 text-white"
+className="px-3 py-2 rounded input text-black dark:text-white"
 
 >
 
@@ -116,13 +116,13 @@ type="number"
 placeholder="Height"
 value={height}
 onChange={(e)=>setHeight(e.target.value)}
-className="flex-1 px-4 py-2 rounded bg-slate-700 text-white"
+className="flex-1 px-4 py-2 rounded input text-black dark:text-white"
 />
 
 <select
 value={heightUnit}
 onChange={(e)=>setHeightUnit(e.target.value)}
-className="px-3 py-2 rounded bg-slate-700 text-white"
+className="px-3 py-2 rounded input text-black dark:text-white"
 
 >
 
@@ -144,7 +144,7 @@ className="px-3 py-2 rounded bg-slate-700 text-white"
 <select
 value={outputUnit}
 onChange={(e)=>setOutputUnit(e.target.value)}
-className="px-4 py-2 rounded bg-slate-700 text-white"
+className="px-4 py-2 rounded input text-black dark:text-white"
 
 >
 
@@ -157,7 +157,7 @@ className="px-4 py-2 rounded bg-slate-700 text-white"
 <button
 type="button"
 onClick={calculate}
-className="bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded text-white"
+className="bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded text-black dark:text-white"
 
 >
 
@@ -169,7 +169,7 @@ Calculate </button>
 
 {result && (
 
-<div className="bg-slate-800 p-4 rounded text-lg">
+<div className="bg-white dark:bg-gray-900 p-4 rounded text-lg">
 
 Result: {result} {outputUnit}
 

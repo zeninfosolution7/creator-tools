@@ -26,7 +26,7 @@ export default function PercentageCalculatorTool() {
         placeholder="Value"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="w-full p-3 bg-slate-700 rounded"
+        className="w-full p-3 input rounded"
       />
 
       <input
@@ -34,7 +34,7 @@ export default function PercentageCalculatorTool() {
         placeholder="Percentage"
         value={percent}
         onChange={(e) => setPercent(e.target.value)}
-        className="w-full p-3 bg-slate-700 rounded"
+        className="w-full p-3 input rounded"
       />
 
       <button
@@ -45,7 +45,7 @@ export default function PercentageCalculatorTool() {
       </button>
 
       {result && (
-        <div className="bg-slate-800 p-4 rounded">
+        <div className="bg-white dark:bg-gray-900 p-4 rounded">
           Result: {result}
         </div>
       )}

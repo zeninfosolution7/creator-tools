@@ -1,11 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: "class", // ✅ REQUIRED for theme toggle
+  darkMode: 'class',   // 🔥 MUST
 
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
-    "./pages/**/*.{js,ts,jsx,tsx}",
   ],
 
   theme: {

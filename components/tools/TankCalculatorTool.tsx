@@ -108,7 +108,7 @@ export default function TankCalculatorTool() {
   return (
     <div className="space-y-6">
 
-      <h2 className="text-xl font-semibold text-white">
+      <h2 className="text-xl font-semibold text-black dark:text-white">
         Tank Volume Calculator
       </h2>
 
@@ -116,7 +116,7 @@ export default function TankCalculatorTool() {
       <select
         value={shape}
         onChange={(e) => setShape(e.target.value)}
-        className="px-4 py-2 rounded bg-slate-700 text-white"
+        className="px-4 py-2 rounded input text-black dark:text-white"
       >
         <option value="cylinder">Round Tank</option>
         <option value="rectangle">Rectangular Tank</option>
@@ -136,12 +136,12 @@ export default function TankCalculatorTool() {
                   placeholder="Enter digits"
                   value={values.diameter}
                   onChange={(e) => updateValue("diameter", e.target.value)}
-                  className="flex-1 px-4 py-2 rounded bg-slate-700 text-white"
+                  className="flex-1 px-4 py-2 rounded input text-black dark:text-white"
                 />
                 <select
                   value={units.diameter}
                   onChange={(e) => updateUnit("diameter", e.target.value)}
-                  className="px-3 py-2 rounded bg-slate-700 text-white"
+                  className="px-3 py-2 rounded input text-black dark:text-white"
                 >
                   <option value="meter">m</option>
                   <option value="feet">ft</option>
@@ -160,12 +160,12 @@ export default function TankCalculatorTool() {
                   placeholder="Enter digits"
                   value={values.height}
                   onChange={(e) => updateValue("height", e.target.value)}
-                  className="flex-1 px-4 py-2 rounded bg-slate-700 text-white"
+                  className="flex-1 px-4 py-2 rounded input text-black dark:text-white"
                 />
                 <select
                   value={units.height}
                   onChange={(e) => updateUnit("height", e.target.value)}
-                  className="px-3 py-2 rounded bg-slate-700 text-white"
+                  className="px-3 py-2 rounded input text-black dark:text-white"
                 >
                   <option value="meter">m</option>
                   <option value="feet">ft</option>
@@ -189,12 +189,12 @@ export default function TankCalculatorTool() {
                   placeholder="Enter digits"
                   value={values.length}
                   onChange={(e) => updateValue("length", e.target.value)}
-                  className="flex-1 px-4 py-2 rounded bg-slate-700 text-white"
+                  className="flex-1 px-4 py-2 rounded input text-black dark:text-white"
                 />
                 <select
                   value={units.length}
                   onChange={(e) => updateUnit("length", e.target.value)}
-                  className="px-3 py-2 rounded bg-slate-700 text-white"
+                  className="px-3 py-2 rounded input text-black dark:text-white"
                 >
                   <option value="meter">m</option>
                   <option value="feet">ft</option>
@@ -213,12 +213,12 @@ export default function TankCalculatorTool() {
                   placeholder="Enter digits"
                   value={values.width}
                   onChange={(e) => updateValue("width", e.target.value)}
-                  className="flex-1 px-4 py-2 rounded bg-slate-700 text-white"
+                  className="flex-1 px-4 py-2 rounded input text-black dark:text-white"
                 />
                 <select
                   value={units.width}
                   onChange={(e) => updateUnit("width", e.target.value)}
-                  className="px-3 py-2 rounded bg-slate-700 text-white"
+                  className="px-3 py-2 rounded input text-black dark:text-white"
                 >
                   <option value="meter">m</option>
                   <option value="feet">ft</option>
@@ -237,12 +237,12 @@ export default function TankCalculatorTool() {
                   placeholder="Enter digits"
                   value={values.height}
                   onChange={(e) => updateValue("height", e.target.value)}
-                  className="flex-1 px-4 py-2 rounded bg-slate-700 text-white"
+                  className="flex-1 px-4 py-2 rounded input text-black dark:text-white"
                 />
                 <select
                   value={units.height}
                   onChange={(e) => updateUnit("height", e.target.value)}
-                  className="px-3 py-2 rounded bg-slate-700 text-white"
+                  className="px-3 py-2 rounded input text-black dark:text-white"
                 >
                   <option value="meter">m</option>
                   <option value="feet">ft</option>
@@ -266,12 +266,12 @@ export default function TankCalculatorTool() {
             placeholder="Enter digits"
             value={flowRate}
             onChange={(e) => setFlowRate(e.target.value)}
-            className="flex-1 px-4 py-2 rounded bg-slate-700 text-white"
+            className="flex-1 px-4 py-2 rounded input text-black dark:text-white"
           />
           <select
             value={flowUnit}
             onChange={(e) => setFlowUnit(e.target.value)}
-            className="px-4 py-2 rounded bg-slate-700 text-white"
+            className="px-4 py-2 rounded input text-black dark:text-white"
           >
             <option value="lpm">L/min</option>
             <option value="lph">L/hour</option>
@@ -284,7 +284,7 @@ export default function TankCalculatorTool() {
         <select
           value={outputUnit}
           onChange={(e) => setOutputUnit(e.target.value)}
-          className="px-4 py-2 rounded bg-slate-700 text-white"
+          className="px-4 py-2 rounded input text-black dark:text-white"
         >
           <option value="liter">Liters</option>
           <option value="m3">Cubic Meter</option>
@@ -293,7 +293,7 @@ export default function TankCalculatorTool() {
 
         <button
           onClick={calculate}
-          className="bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded text-white"
+          className="bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded text-black dark:text-white"
         >
           Calculate
         </button>
@@ -301,7 +301,7 @@ export default function TankCalculatorTool() {
 
       {/* RESULT */}
       {result && (
-        <div className="bg-slate-800 p-4 rounded text-lg space-y-2">
+        <div className="bg-white dark:bg-gray-900 p-4 rounded text-lg space-y-2">
           <div>Volume: {result} {outputUnit}</div>
           {timeResult && <div>Filling Time: {timeResult}</div>}
         </div>

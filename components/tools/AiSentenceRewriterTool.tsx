@@ -20,7 +20,7 @@ export default function AiSentenceRewriterTool() {
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
-        className="w-full p-3 bg-slate-700 rounded h-32"
+        className="w-full p-3 input rounded h-32"
       />
 
       <button
@@ -31,7 +31,7 @@ export default function AiSentenceRewriterTool() {
       </button>
 
       {result && (
-        <div className="bg-slate-800 p-4 rounded">
+        <div className="bg-white dark:bg-gray-900 p-4 rounded">
           {result}
         </div>
       )}

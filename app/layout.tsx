@@ -1,59 +1,32 @@
-import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
-import "./globals.css"
+import './globals.css'
+import ThemeProvider from '@/components/ThemeProvider'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import Script from 'next/script'
 
-import Header from "@/components/Header"
-import Footer from "@/components/Footer"
-import Script from "next/script"
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-})
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-})
-
-export const metadata: Metadata = {
-  title: "CreatorTools – Free Online Tools for Creators, PDFs, Images & AI",
-  description:
-    "CreatorTools provides free online tools for creators, PDF utilities, image editing tools, AI tools and developer utilities in one place.",
-	
-  verification: {
-    google: "YOUR_GOOGLE_SITE_VERIFICATION_CODE",
-  },
-
-  other: {
-    "google-adsense-account": "ca-pub-7275210805094277",
-  },
-}
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
 
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} flex flex-col min-h-screen bg-slate-900 text-white`}
-      >
-	  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7275210805094277"
-     crossOrigin="anonymous"></script>
+      <body className="bg-gray-50 dark:bg-gray-950 text-black dark:text-white">
 
-        <Header />
+        {/* ✅ AdSense Script (CORRECT PLACE) */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7275210805094277"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
 
-        <main className="flex-grow">
-          {children}
-        </main>
-
-        <Footer />
+        <ThemeProvider>
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </div>
+        </ThemeProvider>
 
       </body>
-
     </html>
   )
 }

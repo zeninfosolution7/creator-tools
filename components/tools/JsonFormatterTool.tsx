@@ -29,7 +29,7 @@ export default function JsonFormatterTool() {
         placeholder="Paste JSON here..."
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        className="w-full h-40 p-3 rounded bg-slate-700 text-white"
+        className="w-full h-40 p-3 rounded input text-black dark:text-white"
       />
 
       <button
@@ -44,7 +44,7 @@ export default function JsonFormatterTool() {
       )}
 
       {output && (
-        <pre className="bg-slate-800 p-4 rounded overflow-auto">
+        <pre className="bg-white dark:bg-gray-900 p-4 rounded overflow-auto">
           {output}
         </pre>
       )}
@@ -53,7 +53,7 @@ export default function JsonFormatterTool() {
 
       <div className="mt-10 text-left text-gray-300 space-y-4">
 
-        <h2 className="text-xl font-semibold text-white">
+        <h2 className="text-xl font-semibold text-black dark:text-white">
           What is a JSON Formatter?
         </h2>
 
@@ -67,7 +67,7 @@ export default function JsonFormatterTool() {
           This tool automatically restructures the JSON so it becomes easy to understand.
         </p>
 
-        <h3 className="text-lg font-semibold text-white">
+        <h3 className="text-lg font-semibold text-black dark:text-white">
           Why use a JSON Formatter?
         </h3>
 

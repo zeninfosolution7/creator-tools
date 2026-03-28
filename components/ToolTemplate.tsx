@@ -10,7 +10,6 @@ export default function ToolTemplate({
   title: string;
   description: string;
 }) {
-
   const [mounted, setMounted] = useState(false);
   const [input, setInput] = useState("");
 
@@ -22,16 +21,20 @@ export default function ToolTemplate({
 
   return (
     <ToolLayout title={title} description={description}>
+      
+      {/* INPUT */}
       <textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder="Enter text..."
-        className="w-full h-40 px-4 py-3 mb-6 rounded-lg border border-slate-500 bg-white text-black"
+        className="input h-40 mb-6"
       />
 
-      <div className="bg-white text-black p-4 rounded-lg">
+      {/* RESULT */}
+      <div className="card p-4 text-center">
         Result will appear here
       </div>
+
     </ToolLayout>
   );
 }

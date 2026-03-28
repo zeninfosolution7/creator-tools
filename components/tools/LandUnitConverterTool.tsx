@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { landStates } from "@/lib/landStates"
 import { regionalUnits } from "@/lib/regionalUnits"
+import AdBanner from "@/components/AdBanner";
 
 type Props = {
 state?: string
@@ -114,7 +115,7 @@ setValues({})
 
 return (
 
-<div className="space-y-6">
+<div className="card card-padding space-y-6">
 
 {/* STATE SELECT */}
 
@@ -123,7 +124,7 @@ return (
 <select
 value={stateKey}
 onChange={(e)=>setStateKey(e.target.value)}
-className="px-3 py-2 rounded bg-slate-700 text-white"
+className="input w-full md:w-auto"
 
 >
 
@@ -138,6 +139,13 @@ className="px-3 py-2 rounded bg-slate-700 text-white"
 
 </div>
 
+{/* 🔥 TOP AD (HIGH CTR) */}
+  <div className="flex justify-center">
+    <div className="w-full max-w-3xl h-[90px] bg-gray-200 dark:bg-gray-800 flex items-center justify-center rounded-lg">
+      Ad Space (Leaderboard)
+    </div>
+  </div>
+
 {/* CONVERTER */}
 
 <div className="max-w-3xl mx-auto space-y-4">
@@ -146,7 +154,7 @@ className="px-3 py-2 rounded bg-slate-700 text-white"
 
 <div key={unit.key} className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
 
-<label className="md:w-48 text-base font-medium text-slate-200 flex items-center">
+<label className="md:w-48 text-base font-medium text-black dark:text-white flex items-center">
 {labels?.[unit.key] ?? unit.label}
 </label>
 
@@ -155,7 +163,7 @@ type="text"
 value={values[unit.key] ?? ""}
 onChange={(e)=>handleChange(unit.key,e.target.value)}
 onBlur={()=>convert(unit.key,values[unit.key])}
-className="flex-1 px-4 py-2 rounded bg-slate-700 text-white"
+className="flex-1 px-4 py-2 rounded input text-black dark:text-white"
 placeholder={stateData?.placeholder || defaultPlaceholder}
 />
 
