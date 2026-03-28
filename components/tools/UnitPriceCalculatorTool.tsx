@@ -66,30 +66,43 @@ export default function PricePerKgCalculatorTool() {
       </p>
 
       {/* 🔹 QUANTITY */}
-      <div>
-        <label className="block text-sm mb-1">
-          Quantity
-        </label>
+<div className="space-y-2">
 
-        <div className="flex gap-2">
-          <input
-            type="number"
-            placeholder="e.g. 400"
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-            className="input flex-1"
-          />
+  {/* LABEL */}
+  <label className="text-sm font-medium text-gray-900 dark:text-white">
+    Quantity
+  </label>
 
-          <select
-            value={unit}
-            onChange={(e) => setUnit(e.target.value as "gm" | "kg")}
-            className="input w-24"
-          >
-            <option value="gm">gm</option>
-            <option value="kg">kg</option>
-          </select>
-        </div>
-      </div>
+  {/* INPUT + SELECT */}
+  <div className="flex gap-3">
+
+    {/* INPUT */}
+    <input
+      type="number"
+      placeholder="e.g. 400"
+      value={quantity}
+      onChange={(e) => setQuantity(e.target.value)}
+      className="flex-1 px-4 py-3 rounded-lg
+      border border-gray-300 dark:border-gray-700
+      bg-white dark:bg-gray-900
+      text-black dark:text-white
+      text-base
+      focus:ring-2 focus:ring-cyan-500 outline-none"
+    />
+
+    {/* SELECT */}
+    <select
+  className="... bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100"
+  value={unit}
+  onChange={(e) => setUnit(e.target.value)}
+>
+  <option value="gm">gm</option>
+  <option value="kg">kg</option>
+</select>
+
+  </div>
+
+</div>
 
       {/* 🔹 PRICE INPUT */}
       <div>

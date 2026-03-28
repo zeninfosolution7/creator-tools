@@ -1,6 +1,20 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add this to fix native browser elements (selects, scrollbars) */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  .dark {
+    color-scheme: dark;
+  }
+}
+
 /* LIGHT THEME */
 :root {
   --background: #ffffff;
@@ -36,8 +50,14 @@ body {
   @apply p-4 md:p-6;
 }
 
-input {
-  @apply w-full px-4 py-3 rounded-lg border bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-black dark:text-white;
+.input {
+  @apply w-full px-4 py-3 md:py-3.5 rounded-lg 
+  border border-gray-300 dark:border-gray-700
+  bg-white dark:bg-gray-900
+  text-black dark:text-white
+  text-base
+  focus:outline-none focus:ring-2 focus:ring-cyan-500
+  transition;
 }
 
 .btn {
@@ -57,4 +77,16 @@ select {
 
 option {
   @apply text-black;
+}
+
+/* Force Windows OS to style dropdown options in Dark Mode */
+.dark select option {
+  background-color: #1f2937 !important; /* Matches Tailwind dark:bg-gray-800 */
+  color: #f3f4f6 !important; /* Matches Tailwind dark:text-gray-100 */
+}
+
+/* Ensure the light mode stays crisp */
+html:not(.dark) select option {
+  background-color: #ffffff !important;
+  color: #111827 !important;
 }
