@@ -83,57 +83,53 @@ Water Tank Calculator (Advanced)
 
 <div className="grid md:grid-cols-2 gap-4">
 
-<div className="flex gap-2">
+  {/* Diameter Input Group - UPGRADED TO STRICT GRID */}
+  <div className="grid grid-cols-[1fr_auto] gap-2 w-full items-center">
+    <input
+      type="number"
+      placeholder="Diameter"
+      value={diameter}
+      onChange={(e) => setDiameter(e.target.value)}
+      /* CHANGED: w-full and min-w-0 force the input to obey the 1fr grid track */
+      className="w-full min-w-0 px-4 py-2 rounded input text-black dark:text-white border dark:border-gray-700 bg-transparent outline-none focus:ring-2 focus:ring-blue-500"
+    />
 
-<input
-type="number"
-placeholder="Diameter"
-value={diameter}
-onChange={(e)=>setDiameter(e.target.value)}
-className="flex-1 px-4 py-2 rounded input text-black dark:text-white"
-/>
+    <select
+      value={diameterUnit}
+      onChange={(e) => setDiameterUnit(e.target.value)}
+      /* CHANGED: Fixed strict width to prevent layout shifts */
+      className="w-[100px] sm:w-[110px] px-3 py-2 rounded input text-black dark:text-white border dark:border-gray-700 bg-transparent outline-none focus:ring-2 focus:ring-blue-500"
+    >
+      <option value="feet" className="dark:bg-[#0f172a]">Feet</option>
+      <option value="meter" className="dark:bg-[#0f172a]">Meter</option>
+      <option value="inch" className="dark:bg-[#0f172a]">Inch</option>
+      <option value="cm" className="dark:bg-[#0f172a]">cm</option>
+      <option value="mm" className="dark:bg-[#0f172a]">mm</option>
+    </select>
+  </div>
 
-<select
-value={diameterUnit}
-onChange={(e)=>setDiameterUnit(e.target.value)}
-className="px-3 py-2 rounded input text-black dark:text-white"
+  {/* Height Input Group - UPGRADED TO STRICT GRID */}
+  <div className="grid grid-cols-[1fr_auto] gap-2 w-full items-center">
+    <input
+      type="number"
+      placeholder="Height"
+      value={height}
+      onChange={(e) => setHeight(e.target.value)}
+      className="w-full min-w-0 px-4 py-2 rounded input text-black dark:text-white border dark:border-gray-700 bg-transparent outline-none focus:ring-2 focus:ring-blue-500"
+    />
 
->
-
-<option value="feet">Feet</option>
-<option value="meter">Meter</option>
-<option value="inch">Inch</option>
-<option value="cm">cm</option>
-<option value="mm">mm</option>
-</select>
-
-</div>
-
-<div className="flex gap-2">
-
-<input
-type="number"
-placeholder="Height"
-value={height}
-onChange={(e)=>setHeight(e.target.value)}
-className="flex-1 px-4 py-2 rounded input text-black dark:text-white"
-/>
-
-<select
-value={heightUnit}
-onChange={(e)=>setHeightUnit(e.target.value)}
-className="px-3 py-2 rounded input text-black dark:text-white"
-
->
-
-<option value="feet">Feet</option>
-<option value="meter">Meter</option>
-<option value="inch">Inch</option>
-<option value="cm">cm</option>
-<option value="mm">mm</option>
-</select>
-
-</div>
+    <select
+      value={heightUnit}
+      onChange={(e) => setHeightUnit(e.target.value)}
+      className="w-[100px] sm:w-[110px] px-3 py-2 rounded input text-black dark:text-white border dark:border-gray-700 bg-transparent outline-none focus:ring-2 focus:ring-blue-500"
+    >
+      <option value="feet" className="dark:bg-[#0f172a]">Feet</option>
+      <option value="meter" className="dark:bg-[#0f172a]">Meter</option>
+      <option value="inch" className="dark:bg-[#0f172a]">Inch</option>
+      <option value="cm" className="dark:bg-[#0f172a]">cm</option>
+      <option value="mm" className="dark:bg-[#0f172a]">mm</option>
+    </select>
+  </div>
 
 </div>
 
