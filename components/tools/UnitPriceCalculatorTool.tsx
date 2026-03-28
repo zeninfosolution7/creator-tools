@@ -1,166 +1,97 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
-export default function PricePerKgCalculatorTool() {
-  const [quantity, setQuantity] = useState("");
-  const [unit, setUnit] = useState<"gm" | "kg">("gm");
-  const [price, setPrice] = useState("");
-  const [rate, setRate] = useState("");
+// Define the allowed units as a type
+type WeightUnit = "gm" | "kg";
 
-  const [result, setResult] = useState({
-    perKg: "",
-    total: "",
-  });
+export default function UnitPriceCalculatorTool() {
+  const [price, setPrice] = useState<string>("");
+  const [weight, setWeight] = useState<string>("");
+  const [unit, setUnit] = useState<WeightUnit>("gm");
+  const [result, setResult] = useState<number | null>(null);
 
-  useEffect(() => {
-    const q = parseFloat(quantity);
+  const calculatePricePerKg = () => {
+    const p = parseFloat(price);
+    const w = parseFloat(weight);
 
-    if (!q || q <= 0) {
-      setResult({ perKg: "", total: "" });
+    if (isNaN(p) || isNaN(w) || w <= 0) {
+      setResult(null);
       return;
     }
 
-    const grams = unit === "kg" ? q * 1000 : q;
-
-    const p = parseFloat(price);
-    const r = parseFloat(rate);
-
-    // CASE 1: Price + Quantity → Rate
-    if (p && !r) {
-      const perKg = (p / grams) * 1000;
-
-      setResult({
-        perKg: perKg.toFixed(2), // 🔥 FIXED
-        total: "",
-      });
+    // Zero-Compute logic: All math happens in the user's browser
+    if (unit === "gm") {
+      setResult((p / w) * 1000);
+    } else {
+      setResult(p / w);
     }
+  };
 
-    // CASE 2: Rate + Quantity → Total
-    else if (r && !p) {
-      const total = (r * grams) / 1000;
-
-      setResult({
-        perKg: "",
-        total: total.toFixed(2), // 🔥 FIXED
-      });
-    }
-
-    else {
-      setResult({ perKg: "", total: "" });
-    }
-
-  }, [quantity, unit, price, rate]);
+  // Auto-calculate when inputs change
+  useEffect(() => {
+    calculatePricePerKg();
+  }, [price, weight, unit]);
 
   return (
-    <div className="card card-padding space-y-5">
-
-      {/* 🔹 TITLE */}
-      <h2 className="text-xl font-semibold text-center">
-        Unit Price Calculator
-      </h2>
-
-      {/* 🔹 DESCRIPTION */}
-      <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
-        Enter any two values (quantity + price OR quantity + rate) to instantly calculate price per kg or total amount.
-      </p>
-
-      {/* 🔹 QUANTITY */}
-<div className="space-y-2">
-
-  {/* LABEL */}
-  <label className="text-sm font-medium text-gray-900 dark:text-white">
-    Quantity
-  </label>
-
-  {/* INPUT + SELECT */}
-  <div className="flex gap-3">
-
-    {/* INPUT */}
-    <input
-      type="number"
-      placeholder="e.g. 400"
-      value={quantity}
-      onChange={(e) => setQuantity(e.target.value)}
-      className="flex-1 px-4 py-3 rounded-lg
-      border border-gray-300 dark:border-gray-700
-      bg-white dark:bg-gray-900
-      text-black dark:text-white
-      text-base
-      focus:ring-2 focus:ring-cyan-500 outline-none"
-    />
-
-    {/* SELECT */}
-    <select
-  className="... bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100"
-  value={unit}
-  onChange={(e) => setUnit(e.target.value)}
->
-  <option value="gm">gm</option>
-  <option value="kg">kg</option>
-</select>
-
-  </div>
-
-</div>
-
-      {/* 🔹 PRICE INPUT */}
-      <div>
-        <label className="block text-sm mb-1">
-          Total Price (₹)
-        </label>
-        <input
-          type="number"
-          placeholder="Enter if you know total price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          className="input"
-        />
-      </div>
-
-      {/* 🔹 RATE INPUT */}
-      <div>
-        <label className="block text-sm mb-1">
-          Price per Kg (₹)
-        </label>
-        <input
-          type="number"
-          placeholder="Enter if you know rate"
-          value={rate}
-          onChange={(e) => setRate(e.target.value)}
-          className="input"
-        />
-      </div>
-
-      {/* 🔥 RESULT */}
-      {(result.perKg || result.total) && (
-        <div className="card p-5 text-center space-y-2">
-
-          {result.perKg && (
-            <>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                Price per Kg
-              </p>
-              <p className="text-2xl font-bold">
-                ₹ {result.perKg}
-              </p>
-            </>
-          )}
-
-          {result.total && (
-            <>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                Total Price
-              </p>
-              <p className="text-2xl font-bold">
-                ₹ {result.total}
-              </p>
-            </>
-          )}
-
+    <div className="w-full max-w-2xl mx-auto p-6 bg-white dark:bg-gray-900 rounded-xl shadow-md border border-gray-200 dark:border-gray-800">
+      <div className="space-y-6">
+        {/* Price Input */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Total Price (₹)
+          </label>
+          <input
+            type="number"
+            placeholder="e.g. 50"
+            className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+          />
         </div>
-      )}
 
+        {/* Weight & Unit Input */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Weight/Quantity
+            </label>
+            <input
+              type="number"
+              placeholder="e.g. 250"
+              className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Unit
+            </label>
+            <select
+              className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 outline-none transition-all appearance-none"
+              value={unit}
+              // FIXED: Type cast e.target.value to WeightUnit
+              onChange={(e) => setUnit(e.target.value as WeightUnit)}
+            >
+              <option value="gm">gm</option>
+              <option value="kg">kg</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Result Display */}
+        {result !== null && (
+          <div className="mt-8 p-4 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg text-center">
+            <p className="text-sm text-blue-600 dark:text-blue-400 font-medium uppercase tracking-wider">
+              Price per Kilogram
+            </p>
+            <p className="text-3xl font-bold text-blue-700 dark:text-blue-300 mt-1">
+              ₹{result.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
