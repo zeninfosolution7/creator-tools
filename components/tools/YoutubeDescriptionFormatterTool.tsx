@@ -120,7 +120,7 @@ export default function YoutubeDescriptionFormatterTool() {
 
     // Group into readable paragraphs (roughly every 3 sentences)
     const sentences = descriptionText.match(/[^.!?]+[.!?]+/g) || [descriptionText];
-    let paragraphs = [];
+    let paragraphs: string[] = [];
     let currentParagraph = "";
 
     sentences.forEach((sentence, index) => {
