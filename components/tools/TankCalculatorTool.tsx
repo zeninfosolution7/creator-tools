@@ -129,49 +129,49 @@ export default function TankCalculatorTool() {
         {shape === "cylinder" && (
           <>
             <div className="space-y-1">
-              <label className="text-sm text-slate-300">Diameter</label>
-              <div className="flex gap-2">
+              <label className="md:w-48 text-base font-medium text-black dark:text-white flex shrink-0">Diameter</label>
+              <div className="grid grid-cols-[1fr_auto] gap-2 w-full items-center">
                 <input
                   type="number"
                   placeholder="Enter digits"
                   value={values.diameter}
                   onChange={(e) => updateValue("diameter", e.target.value)}
-                  className="flex-1 px-4 py-2 rounded input text-black dark:text-white"
+                  className="w-full min-w-0 px-4 py-2 rounded input text-black dark:text-white border border-gray-300 dark:border-gray-700 bg-transparent outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <select
                   value={units.diameter}
                   onChange={(e) => updateUnit("diameter", e.target.value)}
-                  className="px-3 py-2 rounded input text-black dark:text-white"
+                  className="w-[100px] sm:w-[110px] px-3 py-2 rounded input text-black dark:text-white border border-gray-300 dark:border-gray-700 bg-transparent outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="meter">m</option>
-                  <option value="feet">ft</option>
-                  <option value="inch">in</option>
-                  <option value="cm">cm</option>
-                  <option value="mm">mm</option>
+                  <option value="meter" className="dark:bg-[#0f172a]">m</option>
+                  <option value="feet" className="dark:bg-[#0f172a]">ft</option>
+                  <option value="inch" className="dark:bg-[#0f172a]">in</option>
+                  <option value="cm" className="dark:bg-[#0f172a]">cm</option>
+                  <option value="mm" className="dark:bg-[#0f172a]">mm</option>
                 </select>
               </div>
             </div>
 
             <div className="space-y-1">
-              <label className="text-sm text-slate-300">Height</label>
-              <div className="flex gap-2">
+              <label className="md:w-48 text-base font-medium text-black dark:text-white flex shrink-0">Height</label>
+              <div className="grid grid-cols-[1fr_auto] gap-2 w-full items-center">
                 <input
                   type="number"
                   placeholder="Enter digits"
                   value={values.height}
                   onChange={(e) => updateValue("height", e.target.value)}
-                  className="flex-1 px-4 py-2 rounded input text-black dark:text-white"
+                  className="w-full min-w-0 px-4 py-2 rounded input text-black dark:text-white border border-gray-300 dark:border-gray-700 bg-transparent outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <select
                   value={units.height}
                   onChange={(e) => updateUnit("height", e.target.value)}
-                  className="px-3 py-2 rounded input text-black dark:text-white"
+                  className="w-[100px] sm:w-[110px] px-3 py-2 rounded input text-black dark:text-white border border-gray-300 dark:border-gray-700 bg-transparent outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="meter">m</option>
-                  <option value="feet">ft</option>
-                  <option value="inch">in</option>
-                  <option value="cm">cm</option>
-                  <option value="mm">mm</option>
+                  <option value="meter" className="dark:bg-[#0f172a]">m</option>
+                  <option value="feet" className="dark:bg-[#0f172a]">ft</option>
+                  <option value="inch" className="dark:bg-[#0f172a]">in</option>
+                  <option value="cm" className="dark:bg-[#0f172a]">cm</option>
+                  <option value="mm" className="dark:bg-[#0f172a]">mm</option>
                 </select>
               </div>
             </div>
@@ -182,73 +182,73 @@ export default function TankCalculatorTool() {
         {shape === "rectangle" && (
           <>
             <div className="space-y-1">
-              <label className="text-sm text-slate-300">Length</label>
-              <div className="flex gap-2">
+              <label className="md:w-48 text-base font-medium text-black dark:text-white flex shrink-0">Length</label>
+              <div className="grid grid-cols-[1fr_auto] gap-2 w-full items-center">
                 <input
                   type="number"
                   placeholder="Enter digits"
                   value={values.length}
                   onChange={(e) => updateValue("length", e.target.value)}
-                  className="flex-1 px-4 py-2 rounded input text-black dark:text-white"
+                  className="w-full min-w-0 px-4 py-2 rounded input text-black dark:text-white border border-gray-300 dark:border-gray-700 bg-transparent outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <select
                   value={units.length}
                   onChange={(e) => updateUnit("length", e.target.value)}
-                  className="px-3 py-2 rounded input text-black dark:text-white"
+                  className="w-[100px] sm:w-[110px] px-3 py-2 rounded input text-black dark:text-white border border-gray-300 dark:border-gray-700 bg-transparent outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="meter">m</option>
-                  <option value="feet">ft</option>
-                  <option value="inch">in</option>
-                  <option value="cm">cm</option>
-                  <option value="mm">mm</option>
+                  <option value="meter" className="dark:bg-[#0f172a]">m</option>
+                  <option value="feet" className="dark:bg-[#0f172a]">ft</option>
+                  <option value="inch" className="dark:bg-[#0f172a]">in</option>
+                  <option value="cm" className="dark:bg-[#0f172a]">cm</option>
+                  <option value="mm" className="dark:bg-[#0f172a]">mm</option>
                 </select>
               </div>
             </div>
 
             <div className="space-y-1">
-              <label className="text-sm text-slate-300">Width</label>
-              <div className="flex gap-2">
+              <label className="md:w-48 text-base font-medium text-black dark:text-white flex shrink-0">Width</label>
+              <div className="grid grid-cols-[1fr_auto] gap-2 w-full items-center">
                 <input
                   type="number"
                   placeholder="Enter digits"
                   value={values.width}
                   onChange={(e) => updateValue("width", e.target.value)}
-                  className="flex-1 px-4 py-2 rounded input text-black dark:text-white"
+                  className="w-full min-w-0 px-4 py-2 rounded input text-black dark:text-white border border-gray-300 dark:border-gray-700 bg-transparent outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <select
                   value={units.width}
                   onChange={(e) => updateUnit("width", e.target.value)}
-                  className="px-3 py-2 rounded input text-black dark:text-white"
+                  className="w-[100px] sm:w-[110px] px-3 py-2 rounded input text-black dark:text-white border border-gray-300 dark:border-gray-700 bg-transparent outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="meter">m</option>
-                  <option value="feet">ft</option>
-                  <option value="inch">in</option>
-                  <option value="cm">cm</option>
-                  <option value="mm">mm</option>
+                  <option value="meter" className="dark:bg-[#0f172a]">m</option>
+                  <option value="feet" className="dark:bg-[#0f172a]">ft</option>
+                  <option value="inch" className="dark:bg-[#0f172a]">in</option>
+                  <option value="cm" className="dark:bg-[#0f172a]">cm</option>
+                  <option value="mm" className="dark:bg-[#0f172a]">mm</option>
                 </select>
               </div>
             </div>
 
             <div className="space-y-1">
-              <label className="text-sm text-slate-300">Height (Depth)</label>
-              <div className="flex gap-2">
+              <label className="md:w-48 text-base font-medium text-black dark:text-white flex shrink-0">Height (Depth)</label>
+              <div className="grid grid-cols-[1fr_auto] gap-2 w-full items-center">
                 <input
                   type="number"
                   placeholder="Enter digits"
                   value={values.height}
                   onChange={(e) => updateValue("height", e.target.value)}
-                  className="flex-1 px-4 py-2 rounded input text-black dark:text-white"
+                  className="w-full min-w-0 px-4 py-2 rounded input text-black dark:text-white border border-gray-300 dark:border-gray-700 bg-transparent outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <select
                   value={units.height}
                   onChange={(e) => updateUnit("height", e.target.value)}
-                  className="px-3 py-2 rounded input text-black dark:text-white"
+                  className="w-[100px] sm:w-[110px] px-3 py-2 rounded input text-black dark:text-white border border-gray-300 dark:border-gray-700 bg-transparent outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="meter">m</option>
-                  <option value="feet">ft</option>
-                  <option value="inch">in</option>
-                  <option value="cm">cm</option>
-                  <option value="mm">mm</option>
+                  <option value="meter" className="dark:bg-[#0f172a]">m</option>
+                  <option value="feet" className="dark:bg-[#0f172a]">ft</option>
+                  <option value="inch" className="dark:bg-[#0f172a]">in</option>
+                  <option value="cm" className="dark:bg-[#0f172a]">cm</option>
+                  <option value="mm" className="dark:bg-[#0f172a]">mm</option>
                 </select>
               </div>
             </div>
@@ -258,23 +258,23 @@ export default function TankCalculatorTool() {
       </div>
 
       {/* FLOW RATE */}
-      <div className="space-y-1">
-        <label className="text-sm text-slate-300">Flow Rate</label>
-        <div className="flex gap-2">
+      <div className="space-y-1 mt-4">
+        <label className="md:w-48 text-base font-medium text-black dark:text-white flex shrink-0">Flow Rate</label>
+        <div className="grid grid-cols-[1fr_auto] gap-2 w-full items-center">
           <input
             type="number"
             placeholder="Enter digits"
             value={flowRate}
             onChange={(e) => setFlowRate(e.target.value)}
-            className="flex-1 px-4 py-2 rounded input text-black dark:text-white"
+            className="w-full min-w-0 px-4 py-2 rounded input text-black dark:text-white border border-gray-300 dark:border-gray-700 bg-transparent outline-none focus:ring-2 focus:ring-blue-500"
           />
           <select
             value={flowUnit}
             onChange={(e) => setFlowUnit(e.target.value)}
-            className="px-4 py-2 rounded input text-black dark:text-white"
+            className="w-[100px] sm:w-[110px] px-3 py-2 rounded input text-black dark:text-white border border-gray-300 dark:border-gray-700 bg-transparent outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="lpm">L/min</option>
-            <option value="lph">L/hour</option>
+            <option value="lpm" className="dark:bg-[#0f172a]">L/min</option>
+            <option value="lph" className="dark:bg-[#0f172a]">L/hour</option>
           </select>
         </div>
       </div>
