@@ -34,7 +34,7 @@ export default function JsonFormatterTool() {
 
       <button
         onClick={formatJson}
-        className="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded"
+        className="btn-brand mx-auto"
       >
         Format JSON
       </button>

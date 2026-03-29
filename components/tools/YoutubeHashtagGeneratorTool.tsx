@@ -63,7 +63,7 @@ export default function YoutubeHashtagGeneratorTool() {
       {/* BUTTON */}
       <button
         onClick={generateHashtags}
-        className="btn btn-primary w-full"
+        className="btn-brand mx-auto"
       >
         Generate Hashtags
       </button>

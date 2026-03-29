@@ -90,3 +90,13 @@ html:not(.dark) select option {
   background-color: #ffffff !important;
   color: #111827 !important;
 }
+
+@layer components {
+  .btn-brand {
+    /* Changed w-full to w-fit, py-3 to py-2, and added px-6 */
+    @apply w-fit px-6 py-2 rounded-lg text-white text-sm font-medium 
+           bg-gradient-to-r from-blue-700 to-cyan-400 
+           hover:brightness-105 transition-all active:scale-[0.95]
+           shadow-sm hover:shadow-blue-500/20 flex items-center justify-center;
+  }
+}

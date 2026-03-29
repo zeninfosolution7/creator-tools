@@ -84,9 +84,7 @@ export default function YoutubeTitleLengthCheckerTool() {
       {/* BUTTON */}
       <button
         onClick={() => navigator.clipboard.writeText(title)}
-        className="w-full py-3 rounded-xl text-white font-medium 
-        bg-gradient-to-r from-blue-700 to-cyan-400
-        hover:opacity-90 transition"
+        className="btn-brand"
       >
         Copy Title
       </button>
