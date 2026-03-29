@@ -49,7 +49,7 @@ export default function YoutubeThumbnailTool() {
 
       <button
         onClick={handleGenerate}
-        className="btn-brand mx-auto"
+        className="btn-brand mx-auto""
       >
         Get Thumbnails
       </button>

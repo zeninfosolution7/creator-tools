@@ -66,7 +66,7 @@ export default function ImageResolutionCalculatorTool() {
       {/* BUTTON */}
       <button
         onClick={calculate}
-        className="btn btn-primary w-full"
+        className="btn-brand mx-auto"
       >
         Calculate
       </button>

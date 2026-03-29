@@ -50,7 +50,7 @@ export default function YoutubeEarningsCalculatorTool() {
       {/* BUTTON */}
       <button
         onClick={calculate}
-        className="btn btn-primary w-full"
+        className="btn-brand mx-auto"
       >
         Calculate Earnings
       </button>

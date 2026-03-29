@@ -55,7 +55,7 @@ export default function YoutubeTagExtractorTool() {
       {/* BUTTON */}
       <button
         onClick={extractTags}
-        className="btn btn-primary w-full"
+        className="btn-brand mx-auto"
       >
         {loading ? "Extracting..." : "Extract Tags"}
       </button>

@@ -100,7 +100,7 @@ export default function YoutubeTitleGeneratorTool() {
 
       <button
         onClick={generateTitles}
-        className="btn btn-primary w-full"
+        className="btn-brand mx-auto"
       >
         Generate Smart Titles
       </button>

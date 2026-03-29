@@ -59,7 +59,7 @@ export default function YoutubeTimestampTool() {
       {/* BUTTON */}
       <button
         onClick={generateLink}
-        className="btn btn-primary w-full"
+        className="btn-brand mx-auto"
       >
         Generate Timestamp Link
       </button>
