@@ -81,10 +81,15 @@ export async function POST(req: NextRequest) {
       },
     });
 
-  } catch (error) {
+  } catch (error: any) {
+    // DIAGNOSTIC CATCH: Expose the raw system error to the frontend
     console.error("Native Decryption API Error:", error);
     return NextResponse.json(
-      { error: "SERVER_ERROR", message: "An unexpected error occurred." },
+      { 
+        error: "SERVER_ERROR", 
+        message: `System Error: ${error.message}`,
+        details: error.stack // Temporarily send the stack trace to the browser
+      },
       { status: 500 }
     );
   } finally {
