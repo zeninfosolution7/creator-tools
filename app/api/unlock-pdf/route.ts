@@ -5,7 +5,6 @@ export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
-    const password = formData.get("password") as string | null;
 
     if (!file) {
       return NextResponse.json(
@@ -14,26 +13,27 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Read the file directly into Vercel's RAM (No file system writing required)
+    // Read the file directly into Vercel's RAM
     const arrayBuffer = await file.arrayBuffer();
 
     let pdfDoc;
     try {
-      // Attempt to load the PDF into memory
-      // Automatically strips Owner Passwords. Decrypts User Passwords if provided.
+      // Load the PDF into memory.
+      // ignoreEncryption: true officially bypasses and strips "Owner Passwords" (Editing/Printing locks).
+      // Note: pdf-lib cannot decrypt strict "User Passwords" (AES encryption).
       pdfDoc = await PDFDocument.load(arrayBuffer, {
-        password: password || "",
+        ignoreEncryption: true,
         updateMetadata: false,
       });
     } catch (error: any) {
       const errorMessage = error.message?.toLowerCase() || "";
       
-      // Catch strict encryption that requires a password
-      if (errorMessage.includes("encrypted") || errorMessage.includes("password")) {
+      // If pdf-lib fails with an encryption error, it means it's a hard "User Password"
+      if (errorMessage.includes("encrypted")) {
         return NextResponse.json(
           { 
             error: "USER_PASSWORD_REQUIRED", 
-            message: "Strict encryption detected or incorrect password. Please try again." 
+            message: "This file has strict cryptographic encryption (User Password). This serverless tool only supports removing standard editing, printing, and copying restrictions." 
           },
           { status: 401 }
         );
@@ -41,12 +41,12 @@ export async function POST(req: NextRequest) {
       
       // Catch malformed PDFs
       return NextResponse.json(
-        { error: "FILE_CORRUPTED", message: "Failed to read PDF file. It might be corrupted or use unsupported AES-256 encryption." },
+        { error: "FILE_CORRUPTED", message: "Failed to read PDF file. It might be corrupted." },
         { status: 400 }
       );
     }
 
-    // Saving the loaded document automatically strips restrictions
+    // Saving the loaded document automatically finalizes the removal of the owner restrictions
     const pdfBytes = await pdfDoc.save();
 
     // Return the clean buffer back to the client directly from memory
