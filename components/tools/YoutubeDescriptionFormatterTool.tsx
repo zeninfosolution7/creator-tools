@@ -198,7 +198,7 @@ export default function YoutubeDescriptionFormatterTool() {
           <button
             onClick={processText}
             disabled={!inputText.trim()}
-            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold rounded-lg shadow-md transition-colors w-full sm:w-auto"
+            className="px-6 py-3 bg-[#41A5F5] hover:bg-[#2892E6] disabled:bg-gray-400 text-white font-bold rounded-lg shadow-md transition-colors w-full sm:w-auto"
           >
             Clean Text ✨
           </button>
@@ -262,21 +262,30 @@ function OutputSection({
   copiedSection: string | null;
   onCopy: (text: string, id: string) => void;
 }) {
+  // BORDER TEST 1: Outer container hovers to solid cyan
   return (
-    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden shadow-sm">
-      <div className="flex justify-between items-center bg-gray-50 dark:bg-gray-900 px-4 py-3 border-b border-gray-200 dark:border-gray-700">
-        <h3 className="font-semibold text-gray-800 dark:text-gray-200">{title}</h3>
+    <div className="bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm transition-all duration-300 hover:border-brand-primary hover:shadow-[0_0_15px_rgba(65,165,245,0.25)]">
+      
+      <div className="flex justify-between items-center bg-gray-50 dark:bg-gray-950 px-4 py-3 border-b-2 border-gray-200 dark:border-gray-800">
+        <h3 className="font-semibold text-gray-800 dark:text-gray-100">{title}</h3>
+        
+        {/* BORDER TEST 2: Copy button has solid cyan border, darkens on hover */}
         <button
           onClick={() => onCopy(content, sectionId)}
-          className="text-sm px-3 py-1.5 rounded-md font-medium flex items-center gap-2 transition-all bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200"
+          className={`text-sm px-4 py-1.5 rounded-lg font-medium flex items-center gap-2 transition-all border-2 ${
+            copiedSection === sectionId
+              ? "bg-green-500/10 border-green-500 text-green-600 dark:text-green-400"
+              : "bg-white dark:bg-gray-800 border-brand-primary text-brand-primary hover:border-brand-primaryHover hover:text-brand-primaryHover hover:bg-brand-primary/10"
+          }`}
         >
           {copiedSection === sectionId ? "✅ Copied!" : "📋 Copy"}
         </button>
       </div>
+      
       <div className="p-4">
         <textarea
           readOnly
-          className="w-full bg-transparent resize-none focus:outline-none text-gray-700 dark:text-gray-300 min-h-[120px]"
+          className="w-full bg-transparent resize-none focus:outline-none text-gray-800 dark:text-gray-200 min-h-[120px]"
           value={content}
           rows={Math.min(content.split("\n").length, 8)}
         />

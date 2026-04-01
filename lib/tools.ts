@@ -103,21 +103,24 @@ slug: "url-encoder",
 title: "URL Encoder",
 description: "Encode URLs safely",
 icon: Link,
-category: "seo"
+category: "developer",
+component: "URLEncoderTool"
 },
 {
 slug: "uuid-generator",
 title: "UUID Generator",
 description: "Generate UUID values",
 icon: Fingerprint,
-category: "developer"
+category: "developer",
+component: "UuidGeneratorTool",
 },
 {
 slug: "timestamp-converter",
 title: "Timestamp Converter",
 description: "Convert Unix timestamps",
 icon: Clock,
-category: "developer"
+category: "developer",
+component: "TimestampConverterTool",
 },
 
 {
@@ -126,16 +129,19 @@ title: "Color Converter",
 description: "Convert HEX RGB HSL colors",
 icon: Palette,
 component: "ColorConverterTool",
-category: "developer"
+category: "developer",
+component: "ColorConverterTool",
 },
+/*
 {
 slug: "character-counter",
 title: "Character Counter",
 description: "Count characters instantly",
 icon: Type,
 component: "CharacterCounterTool",
-category: "developer"
+category: "creator"
 },
+*/
 {
 slug: "image-compressor",
 title: "Image Compressor",

@@ -41,8 +41,10 @@ import YoutubeTagLimitCheckerTool from "@/components/tools/YoutubeTagLimitChecke
 import YoutubeEarningsCalculatorTool from "@/components/tools/YoutubeEarningsCalculatorTool"
 import YoutubeTitleLengthCheckerTool from "@/components/tools/YoutubeTitleLengthCheckerTool"
 import YoutubeDescriptionFormatterTool from "@/components/tools/YoutubeDescriptionFormatterTool"
-
-
+import URLEncoderTool from "@/components/tools/URLEncoderTool"
+import UuidGeneratorTool from "@/components/tools/UuidGeneratorTool"
+import TimestampConverterTool from "@/components/tools/TimestampConverterTool";
+import ColorConverterTool from "@/components/tools/ColorConverterTool";
 
 export const toolComponents = {
   YoutubeThumbnailTool,
@@ -88,4 +90,8 @@ YoutubeTagLimitCheckerTool,
 YoutubeEarningsCalculatorTool,
 YoutubeTitleLengthCheckerTool,
 YoutubeDescriptionFormatterTool,
+URLEncoderTool,
+UuidGeneratorTool,
+TimestampConverterTool,
+ColorConverterTool,
 }

@@ -36,7 +36,7 @@ export default function AiHashtagGeneratorTool() {
 
       <button
         onClick={generate}
-        className="bg-blue-600 px-6 py-3 rounded"
+        className="btn-brand mx-auto"
       >
         Generate Hashtags
       </button>

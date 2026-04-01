@@ -25,7 +25,7 @@ export default function AiSentenceRewriterTool() {
 
       <button
         onClick={rewrite}
-        className="bg-blue-600 px-6 py-3 rounded"
+        className="btn-brand mx-auto"
       >
         Rewrite Sentence
       </button>

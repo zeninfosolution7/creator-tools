@@ -5,7 +5,8 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: "/ads.txt",
+        // Apply these headers to both ads.txt and robots.txt
+        source: "/(ads.txt|robots.txt)",
         headers: [
           {
             key: "Content-Type",
