@@ -122,17 +122,15 @@ icon: Clock,
 category: "developer",
 component: "TimestampConverterTool",
 },
-
+/*
 {
 slug: "color-converter",
 title: "Color Converter",
 description: "Convert HEX RGB HSL colors",
 icon: Palette,
-component: "ColorConverterTool",
 category: "developer",
 component: "ColorConverterTool",
 },
-/*
 {
 slug: "character-counter",
 title: "Character Counter",
