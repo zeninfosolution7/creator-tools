@@ -54,19 +54,24 @@ export async function POST(req: NextRequest) {
     if (password) args.push(`--password=${password}`);
     args.push(inputPath, outputPath);
 
-    try {
-      await execFileAsync(qpdfExecutable, args);
-    } catch (execError: any) {
-      const stderr = execError.stderr?.toLowerCase() || "";
-      
-      // Catch strict AES User Passwords
-      if (stderr.includes("invalid password") || stderr.includes("password")) {
+    } catch (error: any) {
+      if (error.code === 2) {
         return NextResponse.json(
-          { error: "USER_PASSWORD_REQUIRED", message: "Strict encryption detected or incorrect password." },
+          { error: "USER_PASSWORD_REQUIRED", message: "Incorrect password. Please try again." },
           { status: 401 }
         );
       }
-      throw new Error("Engine failed to process the PDF.");
+      
+      if (error.code !== 0 && error.code !== 3) {
+        // EXPOSE THE RAW LINUX CRASH LOG
+        return NextResponse.json(
+          { 
+            error: "QPDF_CRASH", 
+            message: `Linux Exit Code: ${error.code}. OS Output: ${error.stderr || error.message}` 
+          },
+          { status: 500 }
+        );
+      }
     }
 
     // 4. The file is now guaranteed 100% unlocked. Read it back.
