@@ -1,64 +1,79 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PDFDocument } from "pdf-lib";
+import fs from "fs/promises";
+import { existsSync } from "fs";
+import path from "path";
+import os from "os";
+import { execFile } from "child_process";
+import { promisify } from "util";
+
+const execFileAsync = promisify(execFile);
 
 export async function POST(req: NextRequest) {
+  const uniqueId = `${Date.now()}-${Math.random().toString(36).substring(7)}`;
+  const tmpDir = os.tmpdir(); // Safe on both Windows and Vercel
+  
+  const inputPath = path.join(tmpDir, `input-${uniqueId}.pdf`);
+  const outputPath = path.join(tmpDir, `output-${uniqueId}.pdf`);
+  
+  let tempExecutablePath = "";
+  // Default to system 'qpdf' (This makes it work on your local Windows setup automatically)
+  let qpdfExecutable = "qpdf"; 
+
   try {
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
     const password = formData.get("password") as string | null;
 
     if (!file) {
-      return NextResponse.json(
-        { error: "BAD_REQUEST", message: "No PDF file provided." },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "BAD_REQUEST", message: "No PDF provided." }, { status: 400 });
     }
 
-    // 1. Read the file into Vercel's RAM (No filesystem writes = 100% Vercel Safe)
+    // 1. Write the uploaded PDF to the temporary directory
     const arrayBuffer = await file.arrayBuffer();
+    await fs.writeFile(inputPath, Buffer.from(arrayBuffer));
 
-    let pdfDoc;
+    // 2. THE VERCEL BYPASS: If running on Linux (Vercel), use our injected binary
+    if (process.platform === "linux") {
+      const qpdfSourcePath = path.join(process.cwd(), "bin", "qpdf-linux");
+      
+      if (!existsSync(qpdfSourcePath)) {
+        throw new Error("CRITICAL: Linux QPDF binary not found at " + qpdfSourcePath);
+      }
+
+      // We must copy the binary to /tmp and grant it execute permissions to satisfy Linux security
+      tempExecutablePath = path.join(tmpDir, `qpdf-exec-${uniqueId}`);
+      await fs.copyFile(qpdfSourcePath, tempExecutablePath);
+      await fs.chmod(tempExecutablePath, 0o777); // Give execution rights
+      
+      // Tell the script to use our smuggled executable
+      qpdfExecutable = tempExecutablePath; 
+    }
+
+    // 3. Execute true Native Decryption
+    const args = ["--decrypt"];
+    if (password) args.push(`--password=${password}`);
+    args.push(inputPath, outputPath);
+
     try {
-      // 2. THE SUPERCOMPUTER FIX:
-      // We bypass TypeScript's incomplete definitions using 'any'.
-      // If it's an Owner Lock, an empty string "" automatically decrypts it.
-      // If it's a User Lock, the user's provided password decrypts it.
-      const loadOptions: any = {
-        updateMetadata: false,
-        password: password || "", 
-      };
-
-      // This actively DECRYPTS the file streams in memory.
-      pdfDoc = await PDFDocument.load(arrayBuffer, loadOptions);
+      await execFileAsync(qpdfExecutable, args);
+    } catch (execError: any) {
+      const stderr = execError.stderr?.toLowerCase() || "";
       
-    } catch (error: any) {
-      const errorMessage = error.message?.toLowerCase() || "";
-      
-      // If pdf-lib rejects the password or detects a strict lock, ask the client for the password
-      if (errorMessage.includes("encrypted") || errorMessage.includes("password")) {
+      // Catch strict AES User Passwords
+      if (stderr.includes("invalid password") || stderr.includes("password")) {
         return NextResponse.json(
-          { 
-            error: "USER_PASSWORD_REQUIRED", 
-            message: "This file requires a password to decrypt. Please enter it below." 
-          },
+          { error: "USER_PASSWORD_REQUIRED", message: "Strict encryption detected or incorrect password." },
           { status: 401 }
         );
       }
-      
-      return NextResponse.json(
-        { error: "FILE_CORRUPTED", message: "Failed to read PDF. It may be corrupted or use highly advanced AES-256 encryption not supported by serverless engines." },
-        { status: 400 }
-      );
+      throw new Error("Engine failed to process the PDF.");
     }
 
-    // 3. Saving the actively decrypted document generates a completely UNLOCKED PDF.
-    const pdfBytes = await pdfDoc.save();
+    // 4. The file is now guaranteed 100% unlocked. Read it back.
+    const unlockedBuffer = await fs.readFile(outputPath);
 
-    // 4. Convert Uint8Array to Node.js Buffer to satisfy Next.js strict BodyInit types
-    const pdfBuffer = Buffer.from(pdfBytes);
-
-    // 5. Return the clean, unlocked buffer back to the client
-    return new NextResponse(pdfBuffer, {
+    // 5. Return pure binary back to the client
+    return new NextResponse(unlockedBuffer, {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",
@@ -67,10 +82,17 @@ export async function POST(req: NextRequest) {
     });
 
   } catch (error) {
-    console.error("Vercel PDF Unlock API Error:", error);
+    console.error("Native Decryption API Error:", error);
     return NextResponse.json(
-      { error: "SERVER_ERROR", message: "An unexpected server error occurred." },
+      { error: "SERVER_ERROR", message: "An unexpected error occurred." },
       { status: 500 }
     );
+  } finally {
+    // 6. Supercomputer cleanup: Destroy all temporary traces to keep memory pristine
+    if (existsSync(inputPath)) await fs.unlink(inputPath).catch(() => {});
+    if (existsSync(outputPath)) await fs.unlink(outputPath).catch(() => {});
+    if (tempExecutablePath && existsSync(tempExecutablePath)) {
+      await fs.unlink(tempExecutablePath).catch(() => {});
+    }
   }
 }

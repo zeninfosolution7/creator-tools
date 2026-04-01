@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // 1. THE VERCEL BINARY INJECTION: 
+  // Forces Vercel to package the qpdf Linux binary with our specific API route.
+  outputFileTracingIncludes: {
+    "/api/unlock-pdf": ["./bin/**/*"],
+  },
+
+  // 2. YOUR EXISTING HEADERS:
   async headers() {
     return [
       {
