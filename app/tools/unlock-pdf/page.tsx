@@ -29,8 +29,21 @@ export default function UnlockPDFPage() {
       });
 
       if (!response.ok) {
-        const data = await response.json();
+        // Vercel 4.5MB Limit Check
+        if (response.status === 413) {
+          throw new Error("File is too large. Vercel Serverless limits uploads to 4.5MB.");
+        }
+
+        let data;
+        try {
+          // Attempt to parse JSON
+          data = await response.json();
+        } catch (parseError) {
+          // If JSON parsing fails, Vercel returned a raw HTML crash page
+          throw new Error(`Server crashed with status: ${response.status}. Please check Vercel Logs.`);
+        }
         
+        // Handle explicit password requirement
         if (response.status === 401 && data.error === "USER_PASSWORD_REQUIRED") {
           setNeedsPassword(true);
           if (userPassword) {
@@ -40,7 +53,7 @@ export default function UnlockPDFPage() {
           return;
         }
         
-        throw new Error(data.message || "Failed to process the PDF.");
+        throw new Error(data?.message || `API Error: ${response.status}`);
       }
 
       // Success: Create a blob URL for download
@@ -50,7 +63,8 @@ export default function UnlockPDFPage() {
       setNeedsPassword(false);
 
     } catch (err: any) {
-      setError(err.message || "An unexpected error occurred.");
+      console.error("Client side catch:", err);
+      setError(err.message || "An unexpected network error occurred.");
     } finally {
       setIsProcessing(false);
     }
