@@ -16,8 +16,7 @@ export async function POST(req: NextRequest) {
   const outputPath = path.join(tmpDir, `output-${uniqueId}.pdf`);
   
   let tempExecutablePath = "";
-  // Default to system 'qpdf' (This makes it work on your local Windows setup automatically)
-  let qpdfExecutable = "qpdf"; 
+  let qpdfExecutable = "qpdf"; // Defaults to system qpdf on Windows
 
   try {
     const formData = await req.formData();
@@ -28,11 +27,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "BAD_REQUEST", message: "No PDF provided." }, { status: 400 });
     }
 
-    // 1. Write the uploaded PDF to the temporary directory
+    // 1. Write the uploaded PDF to Vercel's temporary directory
     const arrayBuffer = await file.arrayBuffer();
     await fs.writeFile(inputPath, Buffer.from(arrayBuffer));
 
-    // 2. THE VERCEL BYPASS: If running on Linux (Vercel), use our injected binary
+    // 2. VERCEL LINUX BYPASS: Inject the binary if on Vercel
     if (process.platform === "linux") {
       const qpdfSourcePath = path.join(process.cwd(), "bin", "qpdf-linux");
       
@@ -40,21 +39,26 @@ export async function POST(req: NextRequest) {
         throw new Error("CRITICAL: Linux QPDF binary not found at " + qpdfSourcePath);
       }
 
-      // We must copy the binary to /tmp and grant it execute permissions to satisfy Linux security
+      // Copy to /tmp and grant execute permissions
       tempExecutablePath = path.join(tmpDir, `qpdf-exec-${uniqueId}`);
       await fs.copyFile(qpdfSourcePath, tempExecutablePath);
-      await fs.chmod(tempExecutablePath, 0o777); // Give execution rights
+      await fs.chmod(tempExecutablePath, 0o777); 
       
-      // Tell the script to use our smuggled executable
       qpdfExecutable = tempExecutablePath; 
     }
 
-    // 3. Execute true Native Decryption
+    // 3. Prepare Native Decryption Arguments
     const args = ["--decrypt"];
-    if (password) args.push(`--password=${password}`);
+    if (password) {
+      args.push(`--password=${password}`);
+    }
     args.push(inputPath, outputPath);
 
+    // 4. EXECUTE WITH STRICT EXIT CODE CHECKING
+    try {
+      await execFileAsync(qpdfExecutable, args);
     } catch (error: any) {
+      // QPDF returns Exit Code 2 when the password is mathematically incorrect.
       if (error.code === 2) {
         return NextResponse.json(
           { error: "USER_PASSWORD_REQUIRED", message: "Incorrect password. Please try again." },
@@ -62,8 +66,9 @@ export async function POST(req: NextRequest) {
         );
       }
       
+      // QPDF returns Exit Code 3 if it succeeded but had warnings. We ignore 3 and proceed.
+      // If it is anything else, Vercel crashed the binary. Expose the raw output.
       if (error.code !== 0 && error.code !== 3) {
-        // EXPOSE THE RAW LINUX CRASH LOG
         return NextResponse.json(
           { 
             error: "QPDF_CRASH", 
@@ -74,10 +79,10 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // 4. The file is now guaranteed 100% unlocked. Read it back.
+    // 5. The file is guaranteed 100% decrypted. Read it into memory.
     const unlockedBuffer = await fs.readFile(outputPath);
 
-    // 5. Return pure binary back to the client
+    // 6. Return pure, unlocked binary back to the client
     return new NextResponse(unlockedBuffer, {
       status: 200,
       headers: {
@@ -87,18 +92,18 @@ export async function POST(req: NextRequest) {
     });
 
   } catch (error: any) {
-    // DIAGNOSTIC CATCH: Expose the raw system error to the frontend
+    // 7. DIAGNOSTIC CATCH: Expose the raw system error to the frontend if Node.js crashes
     console.error("Native Decryption API Error:", error);
     return NextResponse.json(
       { 
         error: "SERVER_ERROR", 
         message: `System Error: ${error.message}`,
-        details: error.stack // Temporarily send the stack trace to the browser
+        details: error.stack 
       },
       { status: 500 }
     );
   } finally {
-    // 6. Supercomputer cleanup: Destroy all temporary traces to keep memory pristine
+    // 8. Prune temporary files to protect Vercel memory limits
     if (existsSync(inputPath)) await fs.unlink(inputPath).catch(() => {});
     if (existsSync(outputPath)) await fs.unlink(outputPath).catch(() => {});
     if (tempExecutablePath && existsSync(tempExecutablePath)) {
