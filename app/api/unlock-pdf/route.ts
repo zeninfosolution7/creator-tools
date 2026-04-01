@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
   const outputPath = path.join(tmpDir, `output-${uniqueId}.pdf`);
   
   let tempExecutablePath = "";
-  let tempLibPath = "";
+  let tempLibs: string[] = []; // Array to track all dynamically loaded libraries
   let qpdfExecutable = "qpdf"; 
 
   try {
@@ -31,27 +31,31 @@ export async function POST(req: NextRequest) {
     const arrayBuffer = await file.arrayBuffer();
     await fs.writeFile(inputPath, Buffer.from(arrayBuffer));
 
-    // VERCEL LINUX BYPASS: Inject Engine AND Shared Library
+    // VERCEL LINUX BYPASS: The Omni-Loader
     if (process.platform === "linux") {
-      const qpdfSourcePath = path.join(process.cwd(), "bin", "qpdf-linux");
-      const libSourcePath = path.join(process.cwd(), "bin", "libqpdf.so.30"); // The missing blueprint
+      const binDir = path.join(process.cwd(), "bin");
+      const qpdfSourcePath = path.join(binDir, "qpdf-linux");
       
       if (!existsSync(qpdfSourcePath)) {
         throw new Error("CRITICAL: Linux QPDF binary not found at " + qpdfSourcePath);
       }
 
-      // 1. Copy the Engine to /tmp and grant execute permissions
+      // 1. Copy the Engine
       tempExecutablePath = path.join(tmpDir, `qpdf-exec-${uniqueId}`);
       await fs.copyFile(qpdfSourcePath, tempExecutablePath);
       await fs.chmod(tempExecutablePath, 0o777); 
       qpdfExecutable = tempExecutablePath; 
 
-      // 2. Copy the Missing Blueprint to /tmp so the Engine can read it
-      if (existsSync(libSourcePath)) {
-        tempLibPath = path.join(tmpDir, "libqpdf.so.30");
-        await fs.copyFile(libSourcePath, tempLibPath);
-      } else {
-        console.warn("WARNING: libqpdf.so.30 not found in bin folder. Execution may fail.");
+      // 2. Dynamically load EVERY library file in the bin folder to /tmp
+      const binFiles = await fs.readdir(binDir);
+      for (const file of binFiles) {
+        // Skip the engine itself, we only want the dependencies
+        if (file !== "qpdf-linux" && !file.startsWith("qpdf-exec")) {
+          const sourceLibPath = path.join(binDir, file);
+          const destLibPath = path.join(tmpDir, file); // Keep exact same filename
+          await fs.copyFile(sourceLibPath, destLibPath);
+          tempLibs.push(destLibPath); // Add to tracking array for cleanup
+        }
       }
     }
 
@@ -60,12 +64,11 @@ export async function POST(req: NextRequest) {
     args.push(inputPath, outputPath);
 
     try {
-      // 3. EXECUTE WITH KERNEL OVERRIDES
-      // We must explicitly tell Vercel's Linux kernel to look in /tmp for the missing .so file
+      // 3. EXECUTE WITH OMNI-LINKED KERNEL
       await execFileAsync(qpdfExecutable, args, {
         env: {
           ...process.env,
-          // This line is the magic key that fixes Error 127
+          // Tell Vercel's kernel to look in /tmp for ALL the libraries we just copied
           LD_LIBRARY_PATH: `${tmpDir}:${process.env.LD_LIBRARY_PATH || ""}` 
         }
       });
@@ -105,10 +108,14 @@ export async function POST(req: NextRequest) {
       { status: 500 }
     );
   } finally {
-    // 4. Scrub the /tmp folder clean
+    // 4. Scrub the /tmp folder clean to prevent memory leaks
     if (existsSync(inputPath)) await fs.unlink(inputPath).catch(() => {});
     if (existsSync(outputPath)) await fs.unlink(outputPath).catch(() => {});
     if (tempExecutablePath && existsSync(tempExecutablePath)) await fs.unlink(tempExecutablePath).catch(() => {});
-    if (tempLibPath && existsSync(tempLibPath)) await fs.unlink(tempLibPath).catch(() => {});
+    
+    // Dynamically delete every library we copied
+    for (const libPath of tempLibs) {
+      if (existsSync(libPath)) await fs.unlink(libPath).catch(() => {});
+    }
   }
 }
