@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Read the file directly into Vercel's RAM
+    // Read the file directly into Vercel's RAM (Serverless safe)
     const arrayBuffer = await file.arrayBuffer();
 
     let pdfDoc;
@@ -47,10 +47,15 @@ export async function POST(req: NextRequest) {
     }
 
     // Saving the loaded document automatically finalizes the removal of the owner restrictions
+    // This returns a Uint8Array
     const pdfBytes = await pdfDoc.save();
 
+    // CRITICAL FIX: Convert the Uint8Array to a Node.js Buffer. 
+    // This satisfies TypeScript's strict 'BodyInit' requirement for NextResponse.
+    const pdfBuffer = Buffer.from(pdfBytes);
+
     // Return the clean buffer back to the client directly from memory
-    return new NextResponse(pdfBytes, {
+    return new NextResponse(pdfBuffer, {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",
