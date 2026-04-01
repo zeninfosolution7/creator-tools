@@ -10,13 +10,14 @@ const execFileAsync = promisify(execFile);
 
 export async function POST(req: NextRequest) {
   const uniqueId = `${Date.now()}-${Math.random().toString(36).substring(7)}`;
-  const tmpDir = os.tmpdir(); // Safe on both Windows and Vercel
+  const tmpDir = os.tmpdir(); 
   
   const inputPath = path.join(tmpDir, `input-${uniqueId}.pdf`);
   const outputPath = path.join(tmpDir, `output-${uniqueId}.pdf`);
   
   let tempExecutablePath = "";
-  let qpdfExecutable = "qpdf"; // Defaults to system qpdf on Windows
+  let tempLibPath = "";
+  let qpdfExecutable = "qpdf"; 
 
   try {
     const formData = await req.formData();
@@ -27,38 +28,48 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "BAD_REQUEST", message: "No PDF provided." }, { status: 400 });
     }
 
-    // 1. Write the uploaded PDF to Vercel's temporary directory
     const arrayBuffer = await file.arrayBuffer();
     await fs.writeFile(inputPath, Buffer.from(arrayBuffer));
 
-    // 2. VERCEL LINUX BYPASS: Inject the binary if on Vercel
+    // VERCEL LINUX BYPASS: Inject Engine AND Shared Library
     if (process.platform === "linux") {
       const qpdfSourcePath = path.join(process.cwd(), "bin", "qpdf-linux");
+      const libSourcePath = path.join(process.cwd(), "bin", "libqpdf.so.30"); // The missing blueprint
       
       if (!existsSync(qpdfSourcePath)) {
         throw new Error("CRITICAL: Linux QPDF binary not found at " + qpdfSourcePath);
       }
 
-      // Copy to /tmp and grant execute permissions
+      // 1. Copy the Engine to /tmp and grant execute permissions
       tempExecutablePath = path.join(tmpDir, `qpdf-exec-${uniqueId}`);
       await fs.copyFile(qpdfSourcePath, tempExecutablePath);
       await fs.chmod(tempExecutablePath, 0o777); 
-      
       qpdfExecutable = tempExecutablePath; 
+
+      // 2. Copy the Missing Blueprint to /tmp so the Engine can read it
+      if (existsSync(libSourcePath)) {
+        tempLibPath = path.join(tmpDir, "libqpdf.so.30");
+        await fs.copyFile(libSourcePath, tempLibPath);
+      } else {
+        console.warn("WARNING: libqpdf.so.30 not found in bin folder. Execution may fail.");
+      }
     }
 
-    // 3. Prepare Native Decryption Arguments
     const args = ["--decrypt"];
-    if (password) {
-      args.push(`--password=${password}`);
-    }
+    if (password) args.push(`--password=${password}`);
     args.push(inputPath, outputPath);
 
-    // 4. EXECUTE WITH STRICT EXIT CODE CHECKING
     try {
-      await execFileAsync(qpdfExecutable, args);
+      // 3. EXECUTE WITH KERNEL OVERRIDES
+      // We must explicitly tell Vercel's Linux kernel to look in /tmp for the missing .so file
+      await execFileAsync(qpdfExecutable, args, {
+        env: {
+          ...process.env,
+          // This line is the magic key that fixes Error 127
+          LD_LIBRARY_PATH: `${tmpDir}:${process.env.LD_LIBRARY_PATH || ""}` 
+        }
+      });
     } catch (error: any) {
-      // QPDF returns Exit Code 2 when the password is mathematically incorrect.
       if (error.code === 2) {
         return NextResponse.json(
           { error: "USER_PASSWORD_REQUIRED", message: "Incorrect password. Please try again." },
@@ -66,8 +77,6 @@ export async function POST(req: NextRequest) {
         );
       }
       
-      // QPDF returns Exit Code 3 if it succeeded but had warnings. We ignore 3 and proceed.
-      // If it is anything else, Vercel crashed the binary. Expose the raw output.
       if (error.code !== 0 && error.code !== 3) {
         return NextResponse.json(
           { 
@@ -79,10 +88,8 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // 5. The file is guaranteed 100% decrypted. Read it into memory.
     const unlockedBuffer = await fs.readFile(outputPath);
 
-    // 6. Return pure, unlocked binary back to the client
     return new NextResponse(unlockedBuffer, {
       status: 200,
       headers: {
@@ -92,22 +99,16 @@ export async function POST(req: NextRequest) {
     });
 
   } catch (error: any) {
-    // 7. DIAGNOSTIC CATCH: Expose the raw system error to the frontend if Node.js crashes
     console.error("Native Decryption API Error:", error);
     return NextResponse.json(
-      { 
-        error: "SERVER_ERROR", 
-        message: `System Error: ${error.message}`,
-        details: error.stack 
-      },
+      { error: "SERVER_ERROR", message: `System Error: ${error.message}`, details: error.stack },
       { status: 500 }
     );
   } finally {
-    // 8. Prune temporary files to protect Vercel memory limits
+    // 4. Scrub the /tmp folder clean
     if (existsSync(inputPath)) await fs.unlink(inputPath).catch(() => {});
     if (existsSync(outputPath)) await fs.unlink(outputPath).catch(() => {});
-    if (tempExecutablePath && existsSync(tempExecutablePath)) {
-      await fs.unlink(tempExecutablePath).catch(() => {});
-    }
+    if (tempExecutablePath && existsSync(tempExecutablePath)) await fs.unlink(tempExecutablePath).catch(() => {});
+    if (tempLibPath && existsSync(tempLibPath)) await fs.unlink(tempLibPath).catch(() => {});
   }
 }
