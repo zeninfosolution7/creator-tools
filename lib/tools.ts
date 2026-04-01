@@ -122,7 +122,7 @@ icon: Clock,
 category: "developer",
 component: "TimestampConverterTool",
 },
-/*
+
 {
 slug: "color-converter",
 title: "Color Converter",
@@ -131,6 +131,7 @@ icon: Palette,
 category: "developer",
 component: "ColorConverterTool",
 },
+/*
 {
 slug: "character-counter",
 title: "Character Counter",
