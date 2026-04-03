@@ -551,6 +551,7 @@ popular:true
   slug: "weight-calculator",
   title: "Weight Calculator",
   description: "Convert weight between kg, grams, pounds, ounces instantly",
+  component: "WeightCalculatorTool",
   category: "calculators",
   icon: "calculator",
 },
