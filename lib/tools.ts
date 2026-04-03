@@ -559,8 +559,8 @@ popular:true
   description: "Convert between degrees, radians, gradians, and other angular units instantly.",
   category: "Converter",
   component: "AngleConverterTool",
-  seoTitle: "Online Angle Converter | Degrees to Radians & More",
-  seoDescription: "Quickly convert angles between degrees, radians, gradians, turns, and arc-seconds with our free client-side tool."
+  //seoTitle: "Online Angle Converter | Degrees to Radians & More",
+  //seoDescription: "Quickly convert angles between degrees, radians, gradians, turns, and arc-seconds with our free client-side tool."
 }
 ]
 
