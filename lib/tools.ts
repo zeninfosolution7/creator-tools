@@ -553,7 +553,7 @@ popular:true
   description: "Convert weight between kg, grams, pounds, ounces instantly",
   component: "WeightConverterTool",
   category: "calculator",
-  icon: "calculator",
+  icon: Calculator,
 },
 ]
 
