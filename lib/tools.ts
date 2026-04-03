@@ -547,7 +547,13 @@ popular:true
   category: "creator",
   icon: FileText,
 },
-
+{
+  slug: "weight-calculator",
+  name: "Weight Calculator",
+  description: "Convert weight between kg, grams, pounds, ounces instantly",
+  category: "calculators",
+  icon: "calculator",
+},
 ]
 
 export function getToolBySlug(slug: string): ToolDefinition | undefined {

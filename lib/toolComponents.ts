@@ -45,6 +45,7 @@ import URLEncoderTool from "@/components/tools/URLEncoderTool"
 import UuidGeneratorTool from "@/components/tools/UuidGeneratorTool"
 import TimestampConverterTool from "@/components/tools/TimestampConverterTool";
 import ColorConverterTool from "@/components/tools/ColorConverterTool";
+import WeightConverterTool from "@/components/tools/WeightConverterTool"
 
 export const toolComponents = {
   YoutubeThumbnailTool,
@@ -94,4 +95,5 @@ URLEncoderTool,
 UuidGeneratorTool,
 TimestampConverterTool,
 ColorConverterTool,
+WeightConverterTool,
 }
