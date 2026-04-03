@@ -1,32 +1,28 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 type WeightUnit = "gm" | "kg";
 
-export default function UnitPriceCalculatorTool() {
+export default function UnitPriceCalculator() {
   const [quantity, setQuantity] = useState<string>("");
   const [unit, setUnit] = useState<WeightUnit>("gm");
   const [totalPrice, setTotalPrice] = useState<string>("");
   const [pricePerKg, setPricePerKg] = useState<string>("");
 
-  // Helper to format results cleanly (max 2 decimal places)
   const formatResult = (val: number): string => {
     return parseFloat(val.toFixed(2)).toString();
   };
 
-  // Zero-Compute Logic: 3-way data binding
   const handleInputChange = (
     field: "q" | "tp" | "ppk",
     value: string,
     currentUnit: WeightUnit
   ) => {
-    // 1. Update the actively edited field
     if (field === "q") setQuantity(value);
     if (field === "tp") setTotalPrice(value);
     if (field === "ppk") setPricePerKg(value);
 
-    // 2. Parse numbers
     const q = field === "q" ? parseFloat(value) : parseFloat(quantity);
     const tp = field === "tp" ? parseFloat(value) : parseFloat(totalPrice);
     const ppk = field === "ppk" ? parseFloat(value) : parseFloat(pricePerKg);
@@ -37,7 +33,6 @@ export default function UnitPriceCalculatorTool() {
 
     const qKg = qValid ? (currentUnit === "gm" ? q / 1000 : q) : 0;
 
-    // 3. Dynamic Calculation based on what the user changed
     if (field === "q" && qValid) {
       if (ppkValid) setTotalPrice(formatResult(qKg * ppk));
       else if (tpValid) setPricePerKg(formatResult(tp / qKg));
@@ -47,83 +42,79 @@ export default function UnitPriceCalculatorTool() {
       if (qValid) setTotalPrice(formatResult(qKg * ppk));
     }
 
-    // 4. Handle clearing fields
-    if (value === "") {
-      if (field === "tp") setPricePerKg("");
-      if (field === "ppk") setTotalPrice("");
-    }
+    if (value === "" && field === "tp") setPricePerKg("");
+    if (value === "" && field === "ppk") setTotalPrice("");
   };
 
   const handleUnitChange = (newUnit: WeightUnit) => {
     setUnit(newUnit);
-    // Recalculate based on the new unit while maintaining current inputs
     handleInputChange("q", quantity, newUnit);
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-6 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm">
-      <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-          Unit Price Calculator
-        </h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          Enter any two values (quantity + price OR quantity + rate) to instantly
-          calculate price per kg or total amount.
-        </p>
-      </div>
-
-      <div className="space-y-6">
-        {/* Quantity Row */}
+    <div className="card card-padding max-w-3xl mx-auto">
+      <div className="grid gap-6">
+        {/* Quantity Input with Unit Toggle */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
             Quantity
           </label>
-          <div className="flex gap-4">
+          <div className="grid grid-cols-[1fr_90px] gap-3">
             <input
               type="number"
-              placeholder="e.g. 400"
-              className="flex-1 p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+              placeholder="e.g. 500"
+              className="input w-full"
               value={quantity}
               onChange={(e) => handleInputChange("q", e.target.value, unit)}
+              onKeyDown={(e) => e.key === 'Enter' && handleInputChange("q", quantity, unit)}
             />
             <select
-              className="w-32 p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+              className="input w-full cursor-pointer px-2"
               value={unit}
               onChange={(e) => handleUnitChange(e.target.value as WeightUnit)}
             >
-              <option value="gm">gm</option>
-              <option value="kg">kg</option>
+              <option value="gm">GM</option>
+              <option value="kg">KG</option>
             </select>
           </div>
         </div>
 
-        {/* Total Price Row */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Total Price (₹)
-          </label>
-          <input
-            type="number"
-            placeholder="Enter if you know total price"
-            className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-            value={totalPrice}
-            onChange={(e) => handleInputChange("tp", e.target.value, unit)}
-          />
+        {/* Price Inputs */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+              Total Price (₹)
+            </label>
+            <input
+              type="number"
+              placeholder="Total amount"
+              className="input"
+              value={totalPrice}
+              onChange={(e) => handleInputChange("tp", e.target.value, unit)}
+              onKeyDown={(e) => e.key === 'Enter' && handleInputChange("tp", totalPrice, unit)}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+              Price per KG (₹)
+            </label>
+            <input
+              type="number"
+              placeholder="Rate per kg"
+              className="input"
+              value={pricePerKg}
+              onChange={(e) => handleInputChange("ppk", e.target.value, unit)}
+              onKeyDown={(e) => e.key === 'Enter' && handleInputChange("ppk", pricePerKg, unit)}
+            />
+          </div>
         </div>
 
-        {/* Price per Kg Row */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Price per Kg (₹)
-          </label>
-          <input
-            type="number"
-            placeholder="Enter if you know rate"
-            className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-            value={pricePerKg}
-            onChange={(e) => handleInputChange("ppk", e.target.value, unit)}
-          />
-        </div>
+        <button 
+          onClick={() => handleInputChange("q", quantity, unit)}
+          className="btn-brand w-full md:w-auto mt-2"
+        >
+          Calculate
+        </button>
       </div>
     </div>
   );

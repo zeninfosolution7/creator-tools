@@ -34,14 +34,6 @@ const categories = [
     href: "/categories/image",
   },
   {
-    title: "AI Tools",
-    description: "Generate captions, descriptions and creative content.",
-    icon: Bot,
-    gradientFrom: "from-yellow-400/80",
-    gradientTo: "to-orange-500/80",
-    href: "/categories/artificial-intelligence",
-  },
-  {
     title: "Developer Tools",
     description: "Encode, decode, format and analyze code or data.",
     icon: Code,
@@ -56,6 +48,14 @@ const categories = [
     gradientFrom: "from-teal-500/80",
     gradientTo: "to-green-500/80",
     href: "/categories/math",
+  },
+  {
+    title: "Browse All Categories",
+    description: "See All Categories Here",
+    icon: Bot,
+    gradientFrom: "from-gray-700",
+    gradientTo: "to-gray-700",
+    href: "/categories",
   },
 ];
 
@@ -97,7 +97,7 @@ export default function Home() {
               className="input"
             />
 
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn-brand">
               Download Thumbnail
             </button>
 
@@ -213,12 +213,16 @@ export default function Home() {
             developers and everyday productivity.
           </p>
 
-          <Link
-            href="/tools"
-            className="btn btn-primary px-8 py-4"
-          >
-            Browse All Tools
-          </Link>
+          <div className="flex justify-center">
+  <Link
+    href="/tools"
+    className="btn btn-brand px-8 py-4 rounded-xl text-white font-semibold 
+               bg-brand-primary hover:bg-brand-primaryHover 
+               transition-all shadow-md hover:shadow-lg active:scale-[0.97]"
+  >
+    Browse All Tools
+  </Link>
+</div>
 
         </div>
 
