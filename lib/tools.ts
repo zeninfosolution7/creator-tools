@@ -64,8 +64,6 @@ slug: "youtube-thumbnail-downloader",
 title: "YouTube Thumbnail Downloader",
 description: "Download HD thumbnails from YouTube videos",
 icon: Youtube,
-/*gradientFrom: "from-red-500",
-gradientTo: "to-pink-500",*/
 popular: true,
 component: "YoutubeThumbnailTool",
 category: "creator",
