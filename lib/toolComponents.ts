@@ -46,7 +46,7 @@ import UuidGeneratorTool from "@/components/tools/UuidGeneratorTool"
 import TimestampConverterTool from "@/components/tools/TimestampConverterTool";
 import ColorConverterTool from "@/components/tools/ColorConverterTool";
 import WeightConverterTool from "@/components/tools/WeightConverterTool"
-import AngleConverterTool from '@/components/tools/AngleConverter';
+import AngleConverterTool from '@/components/tools/AngleConverterTool';
 
 export const toolComponents = {
   YoutubeThumbnailTool,
