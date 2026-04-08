@@ -33,6 +33,7 @@ AlignLeft,
 Droplet,
 Book,
 DollarSign,
+Thermometer,
 
 } from "lucide-react"
 
@@ -559,9 +560,45 @@ popular:true
   description: "Convert between degrees, radians, gradians, and other angular units instantly.",
   category: "Converter",
   component: "AngleConverterTool",
+  icon: Calculator,
   //seoTitle: "Online Angle Converter | Degrees to Radians & More",
   //seoDescription: "Quickly convert angles between degrees, radians, gradians, turns, and arc-seconds with our free client-side tool."
-}
+},
+{
+	slug: "pressure-converter",
+    title: "Pressure Converter",
+    description: "Instantly convert pressure units including PSI, Bar, Pascals, and Atmospheres.",
+    category: "Converter",
+    component: "PressureConverterTool",
+	icon: Calculator,
+  },
+  {
+    slug: "speed-converter",
+    title: "Speed Converter",
+    description: "Instantly convert speeds between mph, km/h, knots, mach, m/s, and more.",
+    category: "Converter",
+	component: "SpeedConverterTool",
+    icon: Calculator,
+  },
+  {
+  slug: "temperature-converter",
+  title: "Temperature Converter",
+  description: "Real-time conversion between Celsius, Fahrenheit, Kelvin, and more.",
+  icon: Thermometer, 
+  component: "TemperatureConverterTool",
+  category: "Converter",
+  popular: true
+},
+
+{
+  slug: "time-converter",
+  title: "Time Converter",
+  description: "Instantly convert between seconds, minutes, hours, days, weeks, months, years, and more in real-time.",
+  icon: Clock, 
+  component: "TimeConverterTool",
+  category: "converter",
+  popular: false
+},
 ]
 
 export function getToolBySlug(slug: string): ToolDefinition | undefined {

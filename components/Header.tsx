@@ -81,6 +81,7 @@ export default function Header() {
         <div className="md:hidden bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800">
           <div className="flex flex-col p-4 space-y-4 text-gray-700 dark:text-slate-200">
             <Link href="/" onClick={() => setOpen(false)}>Home</Link>
+			<Link href="/categories" onClick={() => setOpen(false)}>Categories</Link>
             <Link href="/tools" onClick={() => setOpen(false)}>Tools</Link>
             <Link href="/privacy-policy" onClick={() => setOpen(false)}>Privacy Policy</Link>
             <Link href="/contact" onClick={() => setOpen(false)}>Contact</Link>

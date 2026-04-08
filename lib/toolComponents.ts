@@ -47,6 +47,9 @@ import TimestampConverterTool from "@/components/tools/TimestampConverterTool";
 import ColorConverterTool from "@/components/tools/ColorConverterTool";
 import WeightConverterTool from "@/components/tools/WeightConverterTool"
 import AngleConverterTool from '@/components/tools/AngleConverterTool';
+import PressureConverterTool from "@/components/tools/PressureConverterTool";
+import SpeedConverterTool from "@/components/tools/SpeedConverterTool"
+import TemperatureConverterTool from "@/components/tools/TemperatureConverterTool"
 
 export const toolComponents = {
   YoutubeThumbnailTool,
@@ -98,4 +101,6 @@ TimestampConverterTool,
 ColorConverterTool,
 WeightConverterTool,
 AngleConverterTool,
+PressureConverterTool,
+TemperatureConverterTool,
 }
